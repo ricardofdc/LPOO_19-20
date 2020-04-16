@@ -7,24 +7,24 @@ public class Arena {
     private int width;
     private int height;
 
-    private Hero hero;
+    private Ship ship;
     private List<Enemy> enemies;
     private List<Wall> walls;
-    private List<Coin> coins;
+    private List<Brick> bricks;
 
     private boolean isFinished;
 
     private List<ArenaObserver> observers;
 
-    public Arena(Hero hero, int width, int height) {
+    public Arena(Ship ship, int width, int height) {
         this.width = width;
         this.height = height;
 
-        this.hero = hero;
+        this.ship = ship;
 
         this.enemies = new ArrayList<>();
         this.walls = new ArrayList<>();
-        this.coins = new ArrayList<>();
+        this.bricks = new ArrayList<>();
 
         this.isFinished = false;
 
@@ -40,17 +40,27 @@ public class Arena {
     }
 
     public void addElement(Element element) {
-        if (element instanceof Hero) hero = (Hero) element;
+        if (element instanceof Ship) ship = (Ship) element;
         if (element instanceof Enemy) enemies.add((Enemy) element);
         if (element instanceof Wall) walls.add((Wall) element);
-        if (element instanceof Coin) coins.add((Coin) element);
+        if (element instanceof Brick) bricks.add((Brick) element);
 
         this.notifyObservers();
     }
 
-    public void moveHeroTo(Position position) {
-        if (canMove(position)) hero.setPosition(position);
-        checkCollisions(hero.getPosition());
+    public void moveShipTo(Position position) {
+        boolean move = true;
+        Position initPos = ship.getPosition();
+        ship.setPosition(position);
+
+        for(Element element: ship.getElements()){
+            if(!canMove(element.getPosition())) {
+                ship.setPosition(initPos);
+                break;
+            }
+        }
+
+        checkCollisions(ship.getPosition());
 
         this.notifyObservers();
     }
@@ -75,14 +85,13 @@ public class Arena {
     private void checkCollisions(Position position) {
         Enemy enemy = (Enemy) getCollidingElement(position, enemies);
         if (enemy != null) {
-            hero.increaseScore(-enemy.getPower());
-            hero.decreaseHealth(enemy.getPower());
+            ship.increaseScore(-enemy.getPower());
         }
 
-        Coin coin = (Coin) getCollidingElement(position, coins);
-        if (coin != null) {
-            hero.increaseScore(coin.getValue());
-            coins.remove(coin);
+        Brick brick = (Brick) getCollidingElement(position, bricks);
+        if (brick != null) {
+            ship.increaseScore(brick.getValue());
+            bricks.remove(brick);
         }
     }
 
@@ -95,14 +104,15 @@ public class Arena {
     }
 
     public boolean isFinished() {
-        return hero.isDead() || coins.size() == 0 || isFinished;
+        return ship.isDead() || /*bricks.size() == 0 ||*/ isFinished;
     }
 
     public List<Element> getAllElements() {
         List<Element> elements = new ArrayList<>();
 
-        elements.add(hero);
-        elements.addAll(coins);
+        //elements.add(ship);
+        elements.addAll(ship.getElements());
+        elements.addAll(bricks);
         elements.addAll(walls);
         elements.addAll(enemies);
 
@@ -110,15 +120,12 @@ public class Arena {
     }
 
     public int getScore() {
-        return hero.getScore();
+        return ship.getScore();
     }
 
-    public int getHeroHealth() {
-        return hero.getHealth();
-    }
 
-    public Position getHeroPosition() {
-        return hero.getPosition();
+    public Position getShipPosition() {
+        return ship.getPosition();
     }
 
     public void finish() {

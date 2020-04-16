@@ -4,17 +4,17 @@ package commands;
 import arena.Arena;
 import arena.Position;
 
-public class MoveHeroUpCommand extends Command {
+public class MoveShipRightCommand extends Command {
     private final Arena arena;
 
-    public MoveHeroUpCommand(Arena arena) {
+    public MoveShipRightCommand(Arena arena) {
         this.arena = arena;
     }
 
     @Override
     public void execute() {
-        Position position = arena.getHeroPosition().up();
-        arena.moveHeroTo(position);
+        Position position = arena.getShipPosition().right();
+        arena.moveShipTo(position);
         arena.step();
     }
 }

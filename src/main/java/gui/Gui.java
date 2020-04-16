@@ -57,14 +57,18 @@ public class Gui {
     }
 
     private void drawScore() {
-        screen.newTextGraphics().putString(0, arena.getHeight(), "Score: " + arena.getScore() + " Health: " + arena.getHeroHealth());
+        screen.newTextGraphics().putString(0, arena.getHeight(), "Score: " + arena.getScore());
     }
 
     private void drawElement(Element element) {
-        if (element instanceof Hero) drawCharacter(element.getPosition(), "H", "#FFFFFF");
+        drawCharacter(element.getPosition(), element.getCharacter(), element.getColor());
+        /*
+        if (element instanceof Ship) drawCharacter(element.getPosition(), "H", "#FFFFFF");
         if (element instanceof Enemy) drawCharacter(element.getPosition(), "E", "#FF0000");
         if (element instanceof Wall) drawCharacter(element.getPosition(), "#", "#FFFFFF");
-        if (element instanceof Coin) drawCharacter(element.getPosition(), "O", "#FFFF00");
+        if (element instanceof Brick) drawCharacter(element.getPosition(), "O", "#FFFF00");
+
+         */
     }
 
     private void drawCharacter(Position position, String character, String color) {
@@ -78,12 +82,11 @@ public class Gui {
     public Command getNextCommand() throws IOException {
         KeyStroke input = screen.readInput();
 
+
         if (input.getKeyType() == KeyType.EOF) return new QuitCommand(arena, screen);
         if (input.getKeyType() == KeyType.Character && input.getCharacter() == 'q') return new QuitCommand(arena, screen);
-        if (input.getKeyType() == KeyType.ArrowDown) return new MoveHeroDownCommand(arena);
-        if (input.getKeyType() == KeyType.ArrowUp) return new MoveHeroUpCommand(arena);
-        if (input.getKeyType() == KeyType.ArrowLeft) return new MoveHeroLeftCommand(arena);
-        if (input.getKeyType() == KeyType.ArrowRight) return new MoveHeroRightCommand(arena);
+        if (input.getKeyType() == KeyType.ArrowLeft) return new MoveShipLeftCommand(arena);
+        if (input.getKeyType() == KeyType.ArrowRight) return new MoveShipRightCommand(arena);
 
         return new DoNothingCommand();
     }

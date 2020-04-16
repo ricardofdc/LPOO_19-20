@@ -2,7 +2,6 @@ package creator;
 
 
 import arena.*;
-import arena.strategies.ZombieMoveStrategy;
 
 import java.util.Random;
 
@@ -13,18 +12,18 @@ public class ArenaCreator {
         this.random = new Random();
     }
 
-    public Arena createArena(int width, int height, int enemies, int coins, int walls) {
-        Hero hero = new Hero(width / 2, height / 2, 10);
-        Arena arena = new Arena(hero, width, height);
+    public Arena createArenaLvl1(int width, int height, int bricks) {
+        Ship ship = new Ship(width / 2, height - 3);
+        Arena arena = new Arena(ship, width, height);
 
-        for (int i = 0; i < coins; i++)
-            arena.addElement(new Coin(random.nextInt(width), random.nextInt(height), random.nextInt(10) + 1));
-
-        for (int i = 0; i < enemies; i++)
-            arena.addElement(new Enemy(random.nextInt(width), random.nextInt(height), 2, new ZombieMoveStrategy()));
-
-        for (int i = 0; i < walls; i++)
-            arena.addElement(new Wall(random.nextInt(width), random.nextInt(height)));
+        for(int i=0; i<width; i++){
+            arena.addElement(new Wall(i,0));
+            arena.addElement(new Wall(i,height-1));
+        }
+        for(int i=1; i<height-1; i++){
+            arena.addElement(new Wall(0,i));
+            arena.addElement(new Wall(width-1,i));
+        }
 
         return arena;
     }

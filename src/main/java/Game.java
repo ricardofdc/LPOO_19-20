@@ -18,7 +18,7 @@ public class Game implements ArenaObserver {
 
     private void start() throws IOException {
         ArenaCreator creator = new ArenaCreator();
-        arena = creator.createArena(50, 25, 10, 20, 50);
+        arena = creator.createArenaLvl1(50, 30, 30);
         arena.addObserver(this);
 
         gui = new Gui(arena);

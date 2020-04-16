@@ -4,6 +4,7 @@ package commands;
 import arena.Arena;
 import com.googlecode.lanterna.screen.Screen;
 
+
 import java.io.IOException;
 
 public class QuitCommand extends Command {

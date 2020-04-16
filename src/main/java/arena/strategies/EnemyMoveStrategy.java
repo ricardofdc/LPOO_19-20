@@ -4,7 +4,7 @@ import arena.Position;
 
 import java.util.Random;
 
-public class ZombieMoveStrategy implements MoveStrategy {
+public class EnemyMoveStrategy implements MoveStrategy {
 
     @Override
     public Position getNextMove(Position position) {

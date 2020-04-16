@@ -10,6 +10,9 @@ public class Enemy extends Element {
     public Enemy(int x, int y, int power, MoveStrategy moveStrategy) {
         super(x, y);
 
+        this.setColor("#666699");
+        this.setCharacter("E");
+
         this.power = power;
         this.moveStrategy = moveStrategy;
     }
@@ -20,5 +23,11 @@ public class Enemy extends Element {
 
     public Position nextMove() {
         return moveStrategy.getNextMove(getPosition());
+    }
+
+    public static class Ball extends Element {
+        public Ball(int x, int y) {
+            super(x, y);
+        }
     }
 }
