@@ -2,9 +2,9 @@
 lpoo-2020-g32 created by GitHub Classroom
 
 # BRICKBREAKER
-Arkanoid inspired game. 
-The goal is to destroy the layer of bricks
-The game ends whenever the player can't catch the bouncing ball
+Arkanoid inspired game  
+The goal is to destroy the layer of bricks  
+Game ends whenever the player can't catch the bouncing ball  
 
 ## Functionalities
 
@@ -18,9 +18,9 @@ The game ends whenever the player can't catch the bouncing ball
 
 
  ### WISH LIST 
-  creating an enemy who drops bombs
-  if the bomb hits the paddle -> *gameover*
-  if the player manage to hit the enemy *3 times* with the bouncing ball -> *enemy dies*
+  creating an enemy who drops bombs  
+  if the bomb hits the paddle -> *gameover*  
+  if the player manage to hit the enemy *3 times* with the bouncing ball -> *enemy dies*  
 
 
 *(increases/decreases paddle's dimensions; increases/decreases velocity)
