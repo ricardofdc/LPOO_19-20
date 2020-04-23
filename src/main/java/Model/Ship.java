@@ -12,11 +12,11 @@ public class Ship extends  Element{
         super(x,y);
 
         elements = new ArrayList<>();
-        elements.add(new ShipElement(x,y));
-        elements.add(new ShipElement(x-2,y));
-        elements.add(new ShipElement(x-1,y));
-        elements.add(new ShipElement(x+1,y));
-        elements.add(new ShipElement(x+2,y));
+        elements.add(new Element(x,y));
+        elements.add(new Element(x-2,y));
+        elements.add(new Element(x-1,y));
+        elements.add(new Element(x+1,y));
+        elements.add(new Element(x+2,y));
 
         this.alive = true;
         this.score = 0;

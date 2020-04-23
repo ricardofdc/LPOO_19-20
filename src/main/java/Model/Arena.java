@@ -8,6 +8,7 @@ public class Arena {
     private int height;
 
     private Ship ship;
+    private Ball ball;
     private List<Enemy> enemies;
     private List<Wall> walls;
     private List<Brick> bricks;
@@ -16,11 +17,12 @@ public class Arena {
 
     private List<ArenaObserver> observers;
 
-    public Arena(Ship ship, int width, int height) {
+    public Arena(Ship ship, Ball ball, int width, int height) {
         this.width = width;
         this.height = height;
 
         this.ship = ship;
+        this.ball = ball;
 
         this.enemies = new ArrayList<>();
         this.walls = new ArrayList<>();
@@ -66,10 +68,13 @@ public class Arena {
     }
 
     public void step() {
+        /*
         for (Enemy enemy : enemies) {
             Position position = enemy.nextMove();
             if (canMove(position)) enemy.setPosition(position);
         }
+
+         */
 
         this.notifyObservers();
     }
@@ -110,8 +115,8 @@ public class Arena {
     public List<Element> getAllElements() {
         List<Element> elements = new ArrayList<>();
 
-        //elements.add(ship);
-        elements.addAll(ship.getElements());
+        elements.add(ship);
+        elements.add(ball);
         elements.addAll(bricks);
         elements.addAll(walls);
         elements.addAll(enemies);

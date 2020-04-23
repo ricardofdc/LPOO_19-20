@@ -1,5 +1,3 @@
-
-
 import Model.Arena;
 import Model.ArenaObserver;
 import Controller.Command;
@@ -18,7 +16,8 @@ public class Game implements ArenaObserver {
 
     private void start() throws IOException {
         ArenaCreator creator = new ArenaCreator();
-        arena = creator.createArenaLvl1(50, 30, 30);
+        //arena = creator.createArenaLvl1(50, 30, 30);
+        arena = creator.createArena("level1.lvl");
         arena.addObserver(this);
 
         gui = new Gui(arena);
