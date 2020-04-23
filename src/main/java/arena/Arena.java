@@ -123,6 +123,10 @@ public class Arena {
         return ship.getScore();
     }
 
+    public int getLifes(){
+        return ship.getLifes();
+    }
+
 
     public Position getShipPosition() {
         return ship.getPosition();

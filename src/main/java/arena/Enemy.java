@@ -10,8 +10,6 @@ public class Enemy extends Element {
     public Enemy(int x, int y, int power, MoveStrategy moveStrategy) {
         super(x, y);
 
-        this.setColor("#666699");
-        this.setCharacter("E");
 
         this.power = power;
         this.moveStrategy = moveStrategy;

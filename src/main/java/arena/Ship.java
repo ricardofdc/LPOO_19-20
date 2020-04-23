@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Ship extends  Element{
     private boolean alive;
     private int score;
+    private int lifes;
     private ArrayList<Element> elements;
 
     public Ship(int x, int y) {
@@ -19,6 +20,7 @@ public class Ship extends  Element{
 
         this.alive = true;
         this.score = 0;
+        this.lifes = 3;
     }
 
     public void increaseScore(int ammount) {
@@ -46,5 +48,13 @@ public class Ship extends  Element{
         elements.add(new ShipElement(position.getX()-1, position.getY()));
         elements.add(new ShipElement(position.getX()+1, position.getY()));
         elements.add(new ShipElement(position.getX()+2, position.getY()));
+    }
+
+    public int getLifes() {
+        return lifes;
+    }
+
+    public void decreaseLifes() {
+        this.lifes--;
     }
 }

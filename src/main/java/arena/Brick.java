@@ -6,8 +6,6 @@ public class Brick extends Element {
     public Brick(int x, int y, int value) {
         super(x, y);
         this.value = value;
-        this.setColor("#800000");
-        this.setCharacter("B");
     }
 
     public int getValue() {

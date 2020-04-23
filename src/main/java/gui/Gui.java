@@ -21,7 +21,7 @@ public class Gui {
     private final TerminalScreen screen;
 
     public Gui(Arena arena) throws IOException {
-        TerminalSize terminalSize = new TerminalSize(arena.getWidth(), arena.getHeight() + 1);
+        TerminalSize terminalSize = new TerminalSize(arena.getWidth(), arena.getHeight() + 2);
         DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory()
                 .setInitialTerminalSize(terminalSize);
 
@@ -40,6 +40,7 @@ public class Gui {
 
         drawArena();
         drawScore();
+        drawLifes();
 
         for (Element element : arena.getAllElements()) drawElement(element);
 
@@ -60,15 +61,19 @@ public class Gui {
         screen.newTextGraphics().putString(0, arena.getHeight(), "Score: " + arena.getScore());
     }
 
-    private void drawElement(Element element) {
-        drawCharacter(element.getPosition(), element.getCharacter(), element.getColor());
-        /*
-        if (element instanceof Ship) drawCharacter(element.getPosition(), "H", "#FFFFFF");
-        if (element instanceof Enemy) drawCharacter(element.getPosition(), "E", "#FF0000");
-        if (element instanceof Wall) drawCharacter(element.getPosition(), "#", "#FFFFFF");
-        if (element instanceof Brick) drawCharacter(element.getPosition(), "O", "#FFFF00");
+    private void drawLifes(){
+        screen.newTextGraphics().putString(0, arena.getHeight()+1, "Lifes: " + arena.getLifes());
+    }
 
-         */
+    private void drawElement(Element element) {
+
+        if (element instanceof ShipElement) drawCharacter(element.getPosition(), "S", "#FFFFFF");
+        if (element instanceof Enemy) drawCharacter(element.getPosition(), "E", "#666699");
+        if (element instanceof Wall) drawCharacter(element.getPosition(), "#", "#000000");
+        if (element instanceof Brick) drawCharacter(element.getPosition(), "B", "#800000");
+        if (element instanceof Ball) drawCharacter(element.getPosition(), "o", "#808080");
+
+
     }
 
     private void drawCharacter(Position position, String character, String color) {
