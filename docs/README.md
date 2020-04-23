@@ -15,7 +15,7 @@ This project was developed by Ricardo Cardoso (up201604686@fe.up.pt) and Marta L
 - [ ] **Collision detection** 
 - [ ] **Enemies** - must throw bombs; must disappear once it is hit 3 times by the bouncing ball
 - [ ] **Score** - must increase differently depending on the type of bricks that are hit 
-- [ ] **Lifes** - how many lifes the player has
+- [ ] **Lifes** - how many lifes the player has, must decrease whenever the player can't catch the ball
 - [ ] **Levels** - 1st level must start with normals bricks only; difficulty increases throughout the levels -> more special bricks, less normal bricks, more enemies 
 
 ## Design 
