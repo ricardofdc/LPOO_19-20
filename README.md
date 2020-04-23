@@ -14,6 +14,7 @@ The player is in control of a sliding platform that can bounce the ball into the
 |  - Arena |  - Score count |
 |  - Walls |
 
+*(increases/decreases paddle's dimensions; increases/decreases velocity)
 
  ### WISH LIST 
   creating an enemy who drops bombs  
@@ -21,5 +22,4 @@ The player is in control of a sliding platform that can bounce the ball into the
   if the player manage to hit the enemy *3 times* with the bouncing ball -> *enemy dies*  
 
 
-*(increases/decreases paddle's dimensions; increases/decreases velocity)
 
