@@ -1,7 +1,7 @@
-package commands;
+package Controller;
 
 
-import arena.Arena;
+import Model.Arena;
 import com.googlecode.lanterna.screen.Screen;
 
 

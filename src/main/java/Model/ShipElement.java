@@ -1,6 +1,4 @@
-package arena;
-
-import java.util.ArrayList;
+package Model;
 
 public class ShipElement extends Element {
     public ShipElement(int x, int y) {

@@ -1,4 +1,4 @@
-package arena;
+package Model;
 
 public enum Direction {
     UP,

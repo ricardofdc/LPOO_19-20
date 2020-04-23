@@ -1,4 +1,4 @@
-package arena;
+package Model;
 
 public class Brick extends Element {
     private int value; //number of times the ball needs to hit the brick

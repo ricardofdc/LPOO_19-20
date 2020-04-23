@@ -1,10 +1,10 @@
 
 
-import arena.Arena;
-import arena.ArenaObserver;
-import commands.Command;
-import creator.ArenaCreator;
-import gui.Gui;
+import Model.Arena;
+import Model.ArenaObserver;
+import Controller.Command;
+import Model.ArenaCreator;
+import View.Gui;
 
 import java.io.IOException;
 

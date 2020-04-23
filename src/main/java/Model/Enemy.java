@@ -1,7 +1,7 @@
-package arena;
+package Model;
 
 
-import arena.strategies.MoveStrategy;
+import Model.strategies.MoveStrategy;
 
 public class Enemy extends Element {
     private int power;

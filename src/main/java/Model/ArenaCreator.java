@@ -1,7 +1,5 @@
-package creator;
+package Model;
 
-
-import arena.*;
 
 import java.util.Random;
 

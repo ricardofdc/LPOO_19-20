@@ -1,4 +1,4 @@
-package arena;
+package Model;
 
 public abstract class Element {
     private Position position;

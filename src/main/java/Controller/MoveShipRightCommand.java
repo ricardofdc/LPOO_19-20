@@ -1,8 +1,8 @@
-package commands;
+package Controller;
 
 
-import arena.Arena;
-import arena.Position;
+import Model.Arena;
+import Model.Position;
 
 public class MoveShipRightCommand extends Command {
     private final Arena arena;
