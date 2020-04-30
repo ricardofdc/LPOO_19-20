@@ -179,8 +179,14 @@ public class Gui {
         graphics.putString(position.getX(), position.getY(), character);
     }
 
-    public Command getNextCommand() throws IOException {
-        KeyStroke input = screen.readInput();
+    public Command getNextCommand() throws IOException, InterruptedException {
+        KeyStroke input = screen.pollInput();
+
+        Thread.sleep(100);
+
+        if(input == null) {
+            return new DoNothingCommand(arena);
+        }
 
         if (input.getKeyType() == KeyType.EOF)
             return new QuitCommand(arena, screen);
@@ -195,6 +201,6 @@ public class Gui {
         if(input.getKeyType() == KeyType.Enter)
             drawMenu();
 
-        return new DoNothingCommand();
+        return new DoNothingCommand(arena);
     }
 }

@@ -10,11 +10,11 @@ public class Game implements ArenaObserver {
     private Arena arena;
     private Gui gui;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
         new Game().start();
     }
 
-    private void start() throws IOException {
+    private void start() throws IOException, InterruptedException {
         ArenaCreator creator = new ArenaCreator();
         //arena = creator.createArenaLvl1(50, 30, 30);
         arena = creator.createArena("level1.lvl");
