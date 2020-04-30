@@ -26,4 +26,12 @@ public class Brick extends Element {
     public ArrayList<Element> getElements(){
         return elements;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Brick)) return false;
+        Brick element = (Brick) o;
+        return element.getPosition().equals(this.getPosition());
+    }
 }

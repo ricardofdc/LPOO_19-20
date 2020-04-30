@@ -101,4 +101,12 @@ public class Ball extends Element {
                 break;
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ball)) return false;
+        Ball element = (Ball) o;
+        return element.getPosition().equals(this.getPosition());
+    }
 }

@@ -5,4 +5,12 @@ public class ShipElement extends Element {
         super(x, y);
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ShipElement)) return false;
+        ShipElement element = (ShipElement) o;
+        return element.getPosition().equals(this.getPosition());
+    }
 }

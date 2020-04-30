@@ -14,5 +14,12 @@ public class Enemy extends Element {
         lifes --;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Enemy)) return false;
+        Enemy element = (Enemy) o;
+        return element.getPosition().equals(this.getPosition());
+    }
 
 }

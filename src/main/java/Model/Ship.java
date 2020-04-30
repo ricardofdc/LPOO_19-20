@@ -57,4 +57,12 @@ public class Ship extends  Element{
     public void decreaseLifes() {
         this.lifes--;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Ship)) return false;
+        Ship element = (Ship) o;
+        return element.getPosition().equals(this.getPosition());
+    }
 }

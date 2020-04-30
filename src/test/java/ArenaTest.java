@@ -45,7 +45,9 @@ public class ArenaTest {
 
         List<Element> arenaElements = arena.getAllElements();
 
-        assertEquals(expected, arenaElements);
+        for(int i=0; i<arenaElements.size(); i++){
+            assertEquals(expected.get(i), arenaElements.get(i));
+        }
 
     }
 
