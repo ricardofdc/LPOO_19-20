@@ -144,13 +144,8 @@ public class Gui {
         graphics.putString(position.getX(), position.getY(), character);
     }
 
-    public Command getNextCommand() throws IOException, InterruptedException {
-        KeyStroke input = screen.pollInput();
-        Thread.sleep(100);
-
-        if(input == null){
-            return new DoNothingCommand(arena);
-        }
+    public Command getNextCommand() throws IOException {
+        KeyStroke input = screen.readInput();
 
         if (input.getKeyType() == KeyType.EOF)
             return new QuitCommand(arena, screen);
@@ -161,6 +156,6 @@ public class Gui {
         if (input.getKeyType() == KeyType.ArrowRight)
             return new MoveShipRightCommand(arena);
 
-        return new DoNothingCommand(arena);
+        return new DoNothingCommand();
     }
 }
