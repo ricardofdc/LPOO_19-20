@@ -19,20 +19,20 @@ public class Position {
         return y;
     }
 
-    public Position left() {
-        return new Position(x - 1, y);
+    public Position left(int i) {
+        return new Position(x - i, y);
     }
 
-    public Position right() {
-        return new Position(x + 1, y);
+    public Position right(int i) {
+        return new Position(x + i, y);
     }
 
-    public Position up() {
-        return new Position(x, y - 1);
+    public Position up(int i) {
+        return new Position(x, y - i);
     }
 
-    public Position down() {
-        return new Position(x, y + 1);
+    public Position down(int i) {
+        return new Position(x, y + i);
     }
 
     @Override

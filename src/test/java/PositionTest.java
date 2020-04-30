@@ -1,5 +1,4 @@
-package Model;
-
+import Model.Position;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,26 +15,42 @@ public class PositionTest {
 
     @Test
     public void moveLeft(){
-        pos.left();
+        pos = pos.left(1);
         Position expected = new Position(9,10);
+        assertEquals(expected, pos);
+
+        pos = pos.left(2);
+        expected = new Position(7,10);
         assertEquals(expected, pos);
     }
     @Test
     public void moveRight(){
-        pos.right();
+        pos = pos.right(1);
         Position expected = new Position(11,10);
+        assertEquals(expected, pos);
+
+        pos = pos.right(2);
+        expected = new Position(13,10);
         assertEquals(expected, pos);
     }
     @Test
     public void moveUp(){
-        pos.up();
+        pos = pos.up(1);
         Position expected = new Position(10,9);
+        assertEquals(expected, pos);
+
+        pos = pos.up(2);
+        expected = new Position(10,7);
         assertEquals(expected, pos);
     }
     @Test
     public void moveDown(){
-        pos.down();
+        pos = pos.down(1);
         Position expected = new Position(10,11);
+        assertEquals(expected, pos);
+
+        pos = pos.down(2);
+        expected = new Position(10,13);
         assertEquals(expected, pos);
     }
 }

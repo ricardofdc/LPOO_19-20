@@ -15,7 +15,11 @@ public class Brick extends Element {
         elements.add(new Element(x+2,y));
     }
 
-    public int getValue() {
+    public void decreaseValue() {
+        value--;
+    }
+
+    public int getValue(){
         return value;
     }
 

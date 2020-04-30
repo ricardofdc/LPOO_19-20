@@ -51,7 +51,6 @@ public class Arena {
     }
 
     public void moveShipTo(Position position) {
-        boolean move = true;
         Position initPos = ship.getPosition();
         ship.setPosition(position);
 
@@ -67,14 +66,18 @@ public class Arena {
         this.notifyObservers();
     }
 
-    public void step() {
-        /*
-        for (Enemy enemy : enemies) {
-            Position position = enemy.nextMove();
-            if (canMove(position)) enemy.setPosition(position);
-        }
+    public void moveBall(){
+        if(ball.getNextPosition().getX() < 0 || ball.getNextPosition().getX() >= width )
+            ball.changeDirection();
+        if(ball.getNextPosition().getY() < 0 || ball.getNextPosition().getY() >= height )
+            ball.changeDirection();
 
-         */
+        checkCollisions(ball.getNextPosition());
+    }
+
+    public void step() {
+        moveBall();
+        ball.step();
 
         this.notifyObservers();
     }
@@ -95,7 +98,7 @@ public class Arena {
 
         Brick brick = (Brick) getCollidingElement(position, bricks);
         if (brick != null) {
-            ship.increaseScore(brick.getValue());
+            ship.increaseScore(1);
             bricks.remove(brick);
         }
     }

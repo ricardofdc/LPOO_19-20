@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="PositionTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2020-04-30T18:29:34" hostname="ricardo-omenbyhplaptop" time="0.002">
+  <properties/>
+  <testcase name="moveUp" classname="PositionTest" time="0.001"/>
+  <testcase name="moveDown" classname="PositionTest" time="0.0"/>
+  <testcase name="moveLeft" classname="PositionTest" time="0.0"/>
+  <testcase name="moveRight" classname="PositionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -13,7 +13,7 @@ public class MoveShipRightCommand extends Command {
 
     @Override
     public void execute() {
-        Position position = arena.getShipPosition().right();
+        Position position = arena.getShipPosition().right(1);
         arena.moveShipTo(position);
         arena.step();
     }

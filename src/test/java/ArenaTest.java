@@ -1,5 +1,4 @@
-package Model;
-
+import Model.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,6 +54,6 @@ public class ArenaTest {
         Position pos = new Position(10,10);
         arena.moveShipTo(pos);
 
-        assertEquals(arena.getShipPosition(), pos);
+        assertEquals(pos, arena.getShipPosition());
     }
 }
