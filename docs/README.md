@@ -38,7 +38,7 @@ Here's how we decided to implement the pattern:
 [_UML aqui_]
 
 #### 1.4) Consequences
-As said in _**Problem in Context**_, besides the organization it makes it easier to change only one component of the game, and to keep all the others intact.
+As said in _**1.1)**_, besides the organization it makes it easier to change only one component of the game, and to keep all the others intact.
 
 
 
