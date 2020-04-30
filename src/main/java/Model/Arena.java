@@ -90,7 +90,7 @@ public class Arena {
     private void checkCollisions(Position position) {
         Enemy enemy = (Enemy) getCollidingElement(position, enemies);
         if (enemy != null) {
-            ship.increaseScore(-enemy.getPower());
+            ship.decreaseLifes();
         }
 
         Brick brick = (Brick) getCollidingElement(position, bricks);
