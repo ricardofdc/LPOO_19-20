@@ -2,6 +2,7 @@ package View;
 
 
 import Model.*;
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
@@ -48,6 +49,38 @@ public class Gui {
         screen.refresh();
     }
 
+    public void drawMenu() throws IOException {
+        screen.clear();
+        TextGraphics graphics = screen.newTextGraphics();
+        graphics.setBackgroundColor(TextColor.Factory.fromString(BACKGROUND_COLOR));
+
+        graphics.fillRectangle(
+                new TerminalPosition(0, 0),
+                new TerminalSize(arena.getWidth()+2, arena.getHeight()+4),
+                ' '
+        );
+
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(16, 25), "PRESS SPACE TO START THE GAME");
+        //option to pick levels for testing propose?
+        graphics.putString(new TerminalPosition(25, 29), "INSTRUCTIONS:");
+        graphics.putString(new TerminalPosition(11, 30), "ARROWS LEFT AND RIGHT TO MOVE THE PADDLE");
+        graphics.putString(new TerminalPosition(20, 31), "DESTROY ALL THE BRICKS!");
+
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#800000"));
+        graphics.putString(new TerminalPosition(0, 12), "_____________________________________________________________________\n");
+        graphics.putString(new TerminalPosition(0, 17), "_____________________________________________________________________\n");
+
+        graphics.setForegroundColor(TextColor.Factory.fromString("#993d00"));
+        graphics.putString(new TerminalPosition(0, 13), "   ___  ___  ___________ __  ___  ___  _______   __ _________ \n");
+        graphics.putString(new TerminalPosition(0, 14), "  / _ )/ _ \\/  _/ ___/ //_/ / _ )/ _ \\/ __/ _ | / //_/ __/ _ \\\n");
+        graphics.putString(new TerminalPosition(0, 15), " / _  / , _// // /__/ ,<   / _  / , _/ _// __ |/ ,< / _// , _/\n");
+        graphics.putString(new TerminalPosition(0, 16), "/____/_/|_/___/\\___/_/|_| /____/_/|_/___/_/ |_/_/|_/___/_/|_| \n");
+        graphics.putString(new TerminalPosition(0, 18), "                                                                     \n");
+
+        screen.refresh();
+    }
+
     private void drawArena() {
         TextGraphics graphics = screen.newTextGraphics();
         graphics.setBackgroundColor(TextColor.Factory.fromString(BACKGROUND_COLOR));
@@ -56,6 +89,8 @@ public class Gui {
                 new TerminalSize(arena.getWidth()+2, arena.getHeight()+2),
                 ' '
         );
+        screen.newTextGraphics().putString(arena.getWidth()-30, arena.getHeight()+3, "PRESS ENTER TO GO BACK TO MENU");
+
     }
 
     private void drawScore() {
@@ -144,14 +179,8 @@ public class Gui {
         graphics.putString(position.getX(), position.getY(), character);
     }
 
-    public Command getNextCommand() throws IOException, InterruptedException {
-        KeyStroke input = screen.pollInput();
-
-        Thread.sleep(100);
-
-        if(input == null){
-            return new DoNothingCommand(arena);
-        }
+    public Command getNextCommand() throws IOException {
+        KeyStroke input = screen.readInput();
 
         if (input.getKeyType() == KeyType.EOF)
             return new QuitCommand(arena, screen);
@@ -161,7 +190,11 @@ public class Gui {
             return new MoveShipLeftCommand(arena);
         if (input.getKeyType() == KeyType.ArrowRight)
             return new MoveShipRightCommand(arena);
+        if(input.getKeyType() == KeyType.Character && input.getCharacter() == ' ')
+            draw();
+        if(input.getKeyType() == KeyType.Enter)
+            drawMenu();
 
-        return new DoNothingCommand(arena);
+        return new DoNothingCommand();
     }
 }
