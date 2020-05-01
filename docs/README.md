@@ -27,9 +27,9 @@ We soon understood that we should separate, for example, the **general logic** o
 This separation is useful by allowing changes on one component, without having to change the other parts; and this way we can easily prevent the violation of the **Single Responsability Principle**.
 
 #### 1.2) The Pattern
-To maintain some form of organization, we followed the Model-View-Controller (MVC) architectural pattern.
-In short, the MVC design pattern specifies that an application consists of a data model (it directly manages the data, logic and rules of the application),
-the view of the information, and the control of the information (accepts inputs and converts them to commands). 
+To maintain some form of organization, we followed the **Model-View-Controller (MVC)** architectural pattern.
+In short, the **MVC** design pattern specifies that an application consists of a data **model** (it directly manages the data, logic and rules of the application),
+the **view** of the information, and the **control** of the information (accepts inputs and converts them to commands). 
 The pattern requires that each of these be separated into different objects. 
 
 #### 1.3) Implementation
