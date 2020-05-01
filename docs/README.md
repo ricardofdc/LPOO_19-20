@@ -50,6 +50,8 @@ We followed **Abstract Factory** as we have a family of products that is designe
 #### 2.3) Implementation
 The objects instantiation is made with **Element** by saving the position, working together with each subclass's constructor (ex: Ball, Ship, Brick, Wall). 
 
+[UML aqui]
+
 #### 2.4) Consequences
 Promoting consistency around the models mentioned above, since they all have a Position attribute and functions that revolve around it throughout the code that are always accessed the same way
 
