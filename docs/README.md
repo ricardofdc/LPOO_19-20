@@ -37,16 +37,34 @@ Here's how we decided to implement the pattern:
 
 [_UML aqui_]
 
-#### 1.4) Consequences
+#### - 1.4) Consequences
 As said in _**1.1)**_, besides the organization it makes it easier to change only one component of the game, and to keep all the others intact.
 
+### 2. Instantiation of the Elements
+#### 2.1) Problem in Context 
+When creating an element, wether it is the ship, the ball, the bricks or even the walls, we wanted to save its position because that way it can be checked and modified throughout the game.
 
+#### 2.2) The Pattern
+We followed Abstract Factory as we have a family of products that is designed to work together, needing to reinforce this constraint.
 
+#### 2.3) Implementation
+The objects instantiation is made with Element by saving the position, working together with each subclass's constructor (ex: Ball, Ship, Brick, Wall). 
 
+#### 2.4) Consequences
+Promoting consistency around the models mentioned above, since they all have a Position attribute and functions that revolve around it throughout the code that are always accessed the same way
+
+### 3. 
+#### 3.1) Problem in Context
+
+#### 3.2) The Pattern
+
+#### 3.3) Implementation
+
+#### 3.4) Consequences
 
 
 ## Know Code Smells and Refactoring Suggestions 
-### Speculative Generality
+### 1. Speculative Generality
 For now, class Enemy is a speculative generality because it was created to support anticipated future features, and currently has no use.
 
 
