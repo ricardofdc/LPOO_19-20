@@ -45,10 +45,10 @@ As said in _**1.1)**_, besides the organization it makes it easier to change onl
 When creating an element, wether it is the ship, the ball, the bricks or even the walls, we wanted to save its position because that way it can be checked and modified throughout the game.
 
 #### 2.2) The Pattern
-We followed Abstract Factory as we have a family of products that is designed to work together, needing to reinforce this constraint.
+We followed **Abstract Factory** as we have a family of products that is designed to work together, needing to reinforce this constraint.
 
 #### 2.3) Implementation
-The objects instantiation is made with Element by saving the position, working together with each subclass's constructor (ex: Ball, Ship, Brick, Wall). 
+The objects instantiation is made with **Element** by saving the position, working together with each subclass's constructor (ex: Ball, Ship, Brick, Wall). 
 
 #### 2.4) Consequences
 Promoting consistency around the models mentioned above, since they all have a Position attribute and functions that revolve around it throughout the code that are always accessed the same way
