@@ -35,7 +35,7 @@ The pattern requires that each of these be separated into different objects.
 #### 1.3) Implementation
 Here's how we decided to implement the pattern:
 
-[_UML aqui_]
+![mvc](mvc.png) 
 
 #### 1.4) Consequences
 As said in _**1.1)**_, besides the organization it makes it easier to change only one component of the game, and to keep all the others intact.
@@ -49,8 +49,6 @@ We followed **Abstract Factory** as we have a family of products that is designe
 
 #### 2.3) Implementation
 The objects instantiation is made with **Element** by saving the position, working together with each subclass's constructor (ex: Ball, Ship, Brick, Wall). 
-
-[UML aqui]
 
 #### 2.4) Consequences
 Promoting consistency around the models mentioned above, since they all have a Position attribute and functions that revolve around it throughout the code that are always accessed the same way
@@ -66,6 +64,4 @@ And in order to process it we have a sequence of if statements that calls difere
 
 ## Testing
 ![coveragereport](coverage.png) 
-
-[_link to mutation testing aqui_]
 
