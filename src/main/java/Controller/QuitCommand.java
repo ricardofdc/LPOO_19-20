@@ -2,6 +2,7 @@ package Controller;
 
 
 import Model.Arena;
+import View.Gui;
 import com.googlecode.lanterna.screen.Screen;
 
 
@@ -11,9 +12,9 @@ public class QuitCommand extends Command {
     private final Arena arena;
     private final Screen screen;
 
-    public QuitCommand(Arena arena, Screen screen) {
+    public QuitCommand(Arena arena, Gui gui) {
         this.arena = arena;
-        this.screen = screen;
+        this.screen = gui.getScreen();
     }
 
     @Override

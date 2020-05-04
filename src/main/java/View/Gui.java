@@ -9,6 +9,7 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
@@ -19,6 +20,7 @@ import java.io.IOException;
 
 public class Gui {
     private final Arena arena;
+    private final Controller controller;
     private final TerminalScreen screen;
     private final String BACKGROUND_COLOR = "#85adad";
 
@@ -35,16 +37,30 @@ public class Gui {
         screen.doResizeIfNecessary();     // resize screen if necessary
 
         this.arena = arena;
+        this.controller = new Controller(arena, this);
+    }
+
+    public Controller getController(){
+        return controller;
     }
 
     public void draw() throws IOException {
+        State state = controller.getState();
+
         screen.clear();
 
-        drawArena();
-        drawScore();
-        drawLifes();
-
-        for (Element element : arena.getAllElements()) drawElement(element);
+        switch (state.toString()){
+            case "MainMenuState":
+                drawMenu();
+                break;
+            case "ArenaState":
+                drawArena();
+                drawScore();
+                drawLifes();
+                for (Element element : arena.getAllElements())
+                    drawElement(element);
+                break;
+        }
 
         screen.refresh();
     }
@@ -180,27 +196,33 @@ public class Gui {
     }
 
     public Command getNextCommand() throws IOException, InterruptedException {
-        KeyStroke input = screen.pollInput();
+        KeyStroke input = screen.readInput();
 
-        Thread.sleep(100);
-
-        if(input == null) {
-            return new DoNothingCommand(arena);
+        if (input.getKeyType() == KeyType.EOF) {
+            return controller.quitKey();
+        }
+        if (input.getKeyType() == KeyType.Character && input.getCharacter() == 'q'){
+            return controller.quitKey();
+        }
+        if (input.getKeyType() == KeyType.ArrowLeft){
+            return controller.leftKey();
+        }
+        if (input.getKeyType() == KeyType.ArrowRight){
+            return controller.rightKey();
+        }
+        if(input.getKeyType() == KeyType.Character && input.getCharacter() == ' '){
+            return controller.spaceKey();
         }
 
-        if (input.getKeyType() == KeyType.EOF)
-            return new QuitCommand(arena, screen);
-        if (input.getKeyType() == KeyType.Character && input.getCharacter() == 'q')
-            return new QuitCommand(arena, screen);
-        if (input.getKeyType() == KeyType.ArrowLeft)
-            return new MoveShipLeftCommand(arena);
-        if (input.getKeyType() == KeyType.ArrowRight)
-            return new MoveShipRightCommand(arena);
-        if(input.getKeyType() == KeyType.Character && input.getCharacter() == ' ')
-            draw();
-        if(input.getKeyType() == KeyType.Enter)
-            drawMenu();
+        if(input.getKeyType() == KeyType.Enter){
+            return controller.enterKey();
+        }
 
-        return new DoNothingCommand(arena);
+        return controller.doNothing();
+    }
+
+
+    public Screen getScreen() {
+        return screen;
     }
 }
