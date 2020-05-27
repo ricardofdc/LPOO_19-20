@@ -1,15 +1,20 @@
 package Model;
 
-public class Wall extends Element {
-    public Wall(int x, int y) {
-        super(x, y);
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
+
+public class Wall extends Element
+{
+    public Wall (Position pos)
+    {
+        super(pos);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Wall)) return false;
-        Wall element = (Wall) o;
-        return element.getPosition().equals(this.getPosition());
+    public void draw(TextGraphics graphics)
+    {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
+        graphics.putString((new TerminalPosition(position.getX(), position.getY())), "\u2023");
     }
 }

@@ -1,228 +1,127 @@
 package View;
 
-
+import Controller.BrickController;
 import Model.*;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
-import com.googlecode.lanterna.screen.Screen;
-import com.googlecode.lanterna.screen.TerminalScreen;
-import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
-import com.googlecode.lanterna.terminal.Terminal;
-import Controller.*;
+import java.util.*;
 
-import java.io.IOException;
+public class Gui
+{
+    private int width, height;
+    private int xBarrier, yBarrier;
+    private int score, lifes, level;
 
+    private List<Wall> barriers;
+    private Ship ship;
+    private List<Brick> bricks;
+    private Ball ball;
 
-public class Gui {
-    private final Arena arena;
-    private final Controller controller;
-    private final TerminalScreen screen;
-    private final String BACKGROUND_COLOR = "#85adad";
+    public Gui(int w, int h, Position pos)
+    {
+        this.xBarrier = pos.getX();
+        this.yBarrier = pos.getY();
+        this.width = w;
+        this.height = h;
 
-    public Gui(Arena arena) throws IOException {
-        TerminalSize terminalSize = new TerminalSize(arena.getWidth()+2, arena.getHeight()+4);
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory()
-                .setInitialTerminalSize(terminalSize);
+        this.score = 0;
+        this.lifes = 3;
+        this.level = 1;
 
-        Terminal terminal = terminalFactory.createTerminal();
-        screen = new TerminalScreen(terminal);
-
-        screen.setCursorPosition(null);   // we don't need a cursor
-        screen.startScreen();             // screens must be started
-        screen.doResizeIfNecessary();     // resize screen if necessary
-
-        this.arena = arena;
-        this.controller = new Controller(arena, this);
+        this.barriers = new ArrayList<>();
+        this.bricks = new ArrayList<>();
     }
 
-    public Controller getController(){
-        return controller;
-    }
-
-    public void draw() throws IOException {
-        State state = controller.getState();
-
-        screen.clear();
-
-        switch (state.toString()){
-            case "MainMenuState":
-                drawMenu();
-                break;
-            case "ArenaState":
-                drawArena();
-                drawScore();
-                drawLifes();
-                for (Element element : arena.getAllElements())
-                    drawElement(element);
-                break;
-        }
-
-        screen.refresh();
-    }
-
-    public void drawMenu() throws IOException {
-        screen.clear();
-        TextGraphics graphics = screen.newTextGraphics();
-        graphics.setBackgroundColor(TextColor.Factory.fromString(BACKGROUND_COLOR));
-
-        graphics.fillRectangle(
-                new TerminalPosition(0, 0),
-                new TerminalSize(arena.getWidth()+2, arena.getHeight()+4),
-                ' '
-        );
-
+    private void drawScore(TextGraphics graphics)
+    {
         graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(16, 25), "PRESS SPACE TO START THE GAME");
-        //option to pick levels for testing propose?
-        graphics.putString(new TerminalPosition(25, 29), "INSTRUCTIONS:");
-        graphics.putString(new TerminalPosition(11, 30), "ARROWS LEFT AND RIGHT TO MOVE THE PADDLE");
-        graphics.putString(new TerminalPosition(20, 31), "DESTROY ALL THE BRICKS!");
-
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#800000"));
-        graphics.putString(new TerminalPosition(0, 12), "_____________________________________________________________________\n");
-        graphics.putString(new TerminalPosition(0, 17), "_____________________________________________________________________\n");
-
-        graphics.setForegroundColor(TextColor.Factory.fromString("#993d00"));
-        graphics.putString(new TerminalPosition(0, 13), "   ___  ___  ___________ __  ___  ___  _______   __ _________ \n");
-        graphics.putString(new TerminalPosition(0, 14), "  / _ )/ _ \\/  _/ ___/ //_/ / _ )/ _ \\/ __/ _ | / //_/ __/ _ \\\n");
-        graphics.putString(new TerminalPosition(0, 15), " / _  / , _// // /__/ ,<   / _  / , _/ _// __ |/ ,< / _// , _/\n");
-        graphics.putString(new TerminalPosition(0, 16), "/____/_/|_/___/\\___/_/|_| /____/_/|_/___/_/ |_/_/|_/___/_/|_| \n");
-        graphics.putString(new TerminalPosition(0, 18), "                                                                     \n");
-
-        screen.refresh();
+        graphics.putString(new TerminalPosition(2, 33), "Score:");
+        graphics.putString(new TerminalPosition(9, 33), "" + score);
     }
 
-    private void drawArena() {
-        TextGraphics graphics = screen.newTextGraphics();
-        graphics.setBackgroundColor(TextColor.Factory.fromString(BACKGROUND_COLOR));
-        graphics.fillRectangle(
-                new TerminalPosition(0, 0),
-                new TerminalSize(arena.getWidth()+2, arena.getHeight()+2),
-                ' '
-        );
-        screen.newTextGraphics().putString(arena.getWidth()-30, arena.getHeight()+3, "PRESS ENTER TO GO BACK TO MENU");
-
+    private void drawLifes(TextGraphics graphics)
+    {
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(2, 32), "Lifes:");
+        graphics.putString(new TerminalPosition(9, 32), "" + lifes);
     }
 
-    private void drawScore() {
-        screen.newTextGraphics().putString(0, arena.getHeight()+2, "Score: " + arena.getScore());
+    private void drawInstructions(TextGraphics graphics)
+    {
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(40, 33), "Press Up to Start!");
     }
 
-    private void drawLifes(){
-        screen.newTextGraphics().putString(0, arena.getHeight()+3, "Lifes: " + arena.getLifes());
+    private void drawLevel(TextGraphics graphics)
+    {
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(2, 31), "Level:");
+        graphics.putString(new TerminalPosition(9, 31), "" + level);
     }
 
-    private void drawElement(Element element) {
+    public void draw(TextGraphics graphics)
+    {
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#85adad"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        drawScore(graphics);
+        drawLifes(graphics);
+        drawLevel(graphics);
+        drawInstructions(graphics);
 
-        if (element instanceof Ship){
-            for(Element e : ((Ship) element).getElements()){
-                drawCharacter(e.getPosition(), "\u2580", "#993d00");
+        for (Wall barrier : barriers)
+            barrier.draw(graphics);
+
+        Iterator<Brick> it = bricks.iterator();
+
+        while (it.hasNext())
+        {
+            Brick next = it.next();
+            next.draw(graphics);
+        }
+
+        ship.draw(graphics);
+        ball.draw(graphics);
+    }
+
+    private List<Wall> barriersParser(List<Position> borders)
+    {
+        List<Wall> barrier = new ArrayList<>();
+
+        for (Position position : borders)
+            barrier.add(new Wall(position));
+
+        return barrier;
+    }
+
+    private List<Brick> wallParser(List<BrickController> bricks)
+    {
+        List<Brick> list = new ArrayList<>();
+
+        for (BrickController brick : bricks)
+        {
+            if(brick.getId().equals("normal"))
+            {
+                list.add(new NormalBrick(brick.getPosition()));
+            }
+            if(brick.getId().equals("special"))
+            {
+                list.add(new SpecialBrick(brick.getPosition()) {
+                });
             }
         }
-        if (element instanceof Enemy)
-            drawCharacter(element.getPosition(), "E", "#666699");
-        if (element instanceof Wall) {
-            Position pos = element.getPosition();
-            if (topLeftWall(pos))
-                drawCharacter(element.getPosition(), "\u2554", "#000000");
-            else if (topRightWall(pos))
-                drawCharacter(element.getPosition(), "\u2557", "#000000");
-            else if (bottomLeftWall(pos))
-                drawCharacter(element.getPosition(), "\u255a", "#000000");
-            else if (bottomRightWall(pos))
-                drawCharacter(element.getPosition(), "\u255d", "#000000");
-            else if (verticalWall(pos))
-                drawCharacter(element.getPosition(), "\u2551", "#000000");
-            else drawCharacter(element.getPosition(), "\u2550", "#000000");
-        }
-        if (element instanceof Brick) {
-            String color = "#FFFFFF";
-            switch (((Brick) element).getValue()){
-                case 1:
-                    color = "#800000";
-            }
-            /*
-            drawCharacter(((Brick) element).getElements().get(0).getPosition(), "\u25c3", color);
-            drawCharacter(((Brick) element).getElements().get(1).getPosition(), "\u25a1", color);
-            drawCharacter(((Brick) element).getElements().get(2).getPosition(), "\u25b9", color);
-            */
-            drawCharacter(((Brick) element).getElements().get(0).getPosition(), "\u2997", color);
-            drawCharacter(((Brick) element).getElements().get(1).getPosition(), "\u2b1b", color);
-            drawCharacter(((Brick) element).getElements().get(2).getPosition(), "\u2998", color);
-            /*
-            drawCharacter(((Brick) element).getElements().get(0).getPosition(), "\u25c4", color);
-            drawCharacter(((Brick) element).getElements().get(1).getPosition(), "\u25fc", color);
-            drawCharacter(((Brick) element).getElements().get(2).getPosition(), "\u25ba", color);
 
-             */
-        }
-        if (element instanceof Ball)
-            drawCharacter(element.getPosition(), "\u25cf", "#001a1a");
-
-
+        return list;
     }
-
-    private boolean topLeftWall(Position pos){
-        return pos.getY()==0 && pos.getX()==0;
-    }
-
-    private boolean topRightWall(Position pos){
-        return pos.getY()==0 && pos.getX()==arena.getWidth()+1;
-    }
-
-    private boolean bottomLeftWall(Position pos){
-        return pos.getY()==arena.getHeight()+1 && pos.getX()==0;
-    }
-
-    private boolean bottomRightWall(Position pos){
-        return pos.getY()==arena.getHeight()+1 && pos.getX()==arena.getWidth()+1;
-    }
-
-    private boolean verticalWall(Position pos){
-        return pos.getY()>0 && pos.getY()<=arena.getHeight();
-    }
-
-    private void drawCharacter(Position position, String character, String color) {
-        TextGraphics graphics = screen.newTextGraphics();
-        graphics.setBackgroundColor(TextColor.Factory.fromString(BACKGROUND_COLOR));
-        graphics.setForegroundColor(TextColor.Factory.fromString(color));
-
-        graphics.putString(position.getX(), position.getY(), character);
-    }
-
-    public Command getNextCommand() throws IOException, InterruptedException {
-        KeyStroke input = screen.readInput();
-
-        if (input.getKeyType() == KeyType.EOF) {
-            return controller.quitKey();
-        }
-        if (input.getKeyType() == KeyType.Character && input.getCharacter() == 'q'){
-            return controller.quitKey();
-        }
-        if (input.getKeyType() == KeyType.ArrowLeft){
-            return controller.leftKey();
-        }
-        if (input.getKeyType() == KeyType.ArrowRight){
-            return controller.rightKey();
-        }
-        if(input.getKeyType() == KeyType.Character && input.getCharacter() == ' '){
-            return controller.spaceKey();
-        }
-
-        if(input.getKeyType() == KeyType.Enter){
-            return controller.enterKey();
-        }
-
-        return controller.doNothing();
-    }
+    public void setLevel(int level){this.level = level;}
+    public void setShip(Position pos) { this.ship = new Ship(pos); }
+    public void setBall(Position pos) { this.ball = new Ball(pos); }
+    public void setBarriers(List<Position> barriers) { this.barriers = barriersParser(barriers); }
+    public void setBricks(List<BrickController> bricks) { this.bricks = wallParser(bricks); }
+    public void setScore(int score) { this.score = score; }
+    public void setLifes(int lifes) { this.lifes = lifes; }
 
 
-    public Screen getScreen() {
-        return screen;
-    }
 }
