@@ -22,8 +22,8 @@ public class LanternaDisplay implements Display {
         run = true;
         this.arena = arena;
 
-        Position position = new Position(0,0);
-        gui = new Gui(60,35, position);
+        Position pos = new Position(0,0);
+        gui = new Gui(60,35, pos);
         gui.setBarriers(arena.makeBarriers());
     }
 
@@ -32,8 +32,7 @@ public class LanternaDisplay implements Display {
     {
         try
         {
-            int width = 60;
-            int height = 35;
+            int width = 60, height = 35;
             Terminal terminal = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(width, height)).createTerminal();
 
             screen = new TerminalScreen(terminal);

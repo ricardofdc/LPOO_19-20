@@ -7,9 +7,12 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Wall extends Element
 {
+    public Position position;
+
     public Wall (Position pos)
     {
         super(pos);
+        this.position = pos;
     }
 
     public void draw(TextGraphics graphics)
