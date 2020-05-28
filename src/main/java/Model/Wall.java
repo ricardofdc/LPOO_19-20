@@ -7,16 +7,11 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Wall extends Element
 {
-    public Position position;
-
-    public Wall (Position pos)
-    {
+    public Wall (Position pos) {
         super(pos);
-        this.position = pos;
     }
 
-    public void draw(TextGraphics graphics)
-    {
+    public void draw(TextGraphics graphics) {
         graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
         graphics.putString((new TerminalPosition(position.getX(), position.getY())), "\u2023");
     }

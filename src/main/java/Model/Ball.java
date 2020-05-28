@@ -1,34 +1,32 @@
 package Model;
 
-public class Ball {
+public class Ball extends Element {
     private Position initPos;
-    private Position pos;
 
-    public Ball (Position pos)
-    {
-        this.pos = pos;
+    public Ball (Position pos) {
+        super(pos);
         this.initPos = new Position(pos.getX(),pos.getY());
     }
 
     public void startPosition(){
-        this.pos = new Position(initPos.getX(), initPos.getY());
+        this.position = new Position(initPos.getX(), initPos.getY());
     }
 
     public Position getPosition() {
-        return this.pos;
+        return this.position;
     }
 
     public void setPosition(Position pos){
-        this.pos = pos;
+        this.position = pos;
     }
 
     public void moveBallHorizontal(int dir){
         switch (dir){
             case -1:
-                setPosition(pos.left());
+                setPosition(position.left());
                 break;
             case 1:
-                setPosition(pos.right());
+                setPosition(position.right());
                 break;
             default:
                 break;
@@ -38,10 +36,10 @@ public class Ball {
     public void moveBallVertical(int dir){
         switch (dir){
             case -1:
-                setPosition(pos.down());
+                setPosition(position.down());
                 break;
             case 1:
-                setPosition(pos.up());
+                setPosition(position.up());
                 break;
             default:
                 break;

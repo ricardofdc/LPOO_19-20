@@ -1,7 +1,6 @@
 package Model;
 
-public class Element
-{
+public class Element {
     protected Position position;
 
     public Element(Position pos) { this.position = pos; }

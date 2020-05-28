@@ -5,16 +5,15 @@ import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Ship
+public class Ship extends Element
 {
-    private Position position;
     private Position initPosition;
     private int length = 7;
     private int lifes = 3;
 
     public Ship(Position pos)
     {
-        this.position = pos;
+        super(pos);
         this.initPosition = new Position(pos.getX(),pos.getY());
     }
 
