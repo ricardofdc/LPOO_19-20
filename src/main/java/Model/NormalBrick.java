@@ -7,7 +7,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class NormalBrick extends Brick
 {
-    public NormalBrick(Position pos) { super(pos); }
+    public NormalBrick(Position pos, int value) { super(pos, value); }
 
     public void draw(TextGraphics graphics)
     {

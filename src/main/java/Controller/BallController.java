@@ -1,30 +1,22 @@
 package Controller;
 
+import Model.Ball;
 import Model.Element;
 import Model.Position;
 import java.util.*;
 
-public class BallController extends Element
+public class BallController
 {
-    private int x, y, speed;
-    private boolean stop;
+    private Ball ball;
 
-    public BallController(Position pos)
+    public BallController(Ball ball)
     {
-        super(pos);
-        this.stop = true;
-        this.x = 0;
-        this.y = 0;
-        this.speed = 1;
+        this.ball = ball;
     }
 
-    public void reset(Position pos)
+    public void reset()
     {
-        this.position = pos;
-        this.stop = true;
-        this.x = 0;
-        this.y = 0;
-        this.speed = 1;
+        this.ball.startPosition();
     }
 
     public void processCollision(Position collision, boolean barrierCollide)

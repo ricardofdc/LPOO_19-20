@@ -1,5 +1,6 @@
 package View;
 
+import Model.ArenaCreator;
 import Model.Position;
 import Model.Arena;
 
@@ -10,9 +11,8 @@ public class Game {
     private Display display;
     private Arena arena;
 
-    public Game(String type) {
-        Position position = new Position(2, 4);
-        arena = new Arena(50, 25, position);
+    public Game() {
+        arena = new ArenaCreator().createArena(1);
 
         display = new LanternaDisplay(arena);
         display.start();

@@ -1,94 +1,78 @@
 package Controller;
 
+import Model.Arena;
 import Model.Position;
 
 import java.util.*;
 
 public class ArenaController {
+    private Arena arena;
+    private BallController ballController;
+    private ShipController shipController;
 
-    private List<BrickController> bricks;
-    private int width, brickRows, x, y, level;
-
-    public ArenaController(int width, Position initPos, int level)
+    public ArenaController(Arena arena)
     {
-        brickRows = 8;
-        this.width = width;
-        this.x = initPos.getX();
-        this.y = initPos.getY();
-        this.level = level;
-        initBricks();
+        this.arena = arena;
+        this.ballController = new BallController(arena.getBall());
     }
 
-    private void initBricks() {
-        bricks = new ArrayList<>();
+    private boolean checkCollision(Position pos) {
 
-        if(level == 1) {
-            for (int i = 1; i < brickRows; i++) {
-                for (int j = 5; j < width - 5; j++) {
-                    BrickController block = new NormalBrickController(new Position(x + j, y + i));
-                    bricks.add(block);
+        for (Position position : barriers) {
+            if (pos.equals(position))
+            {
+                if (position.getX() == xBarrier - 1 || position.getX() == xBarrier + width) {
+                    ball.processCollision(position, true);
+                } else if (position.getY() == yBarrier - 1) {
+                    ball.processCollision(position, false);
+                } else if (position.getY() == yBarrier + height) {
+                    if (this.ship.getLifes() <= 1) {
+                        gameOver();
+                    } else if (this.ship.getLifes() > 1) {
+                        decreaseLife();
+                    }
                 }
+                return true;
             }
         }
 
-        else if(level == 2) {
-            for (int i = 1; i < brickRows; i++) {
-                for (int j = 15; j < width - 15; j++) {
-                    BrickController block2 = new SpecialBrickController(new Position(x + j, y + i));
-                    bricks.add(block2);
-                    bricks.add(block2);
-                }
-            }
-        }
-        else if(level == 3) {
-            for (int i = 1; i < brickRows; i++) {
-                BrickController block = new SpecialBrickController(new Position(x + 2*i - 1, y + i));
-                bricks.add(block);
-                bricks.add(block);
-                BrickController block1 = new SpecialBrickController(new Position(x + width - 2*i, y + i));
-                bricks.add(block1);
-                bricks.add(block1);
-                for (int j = 15; j < width - 15; j++) {
-                    BrickController block2 = new NormalBrickController(new Position(x + j, y + i));
-                    bricks.add(block2);
-                }
-            }
-        }
-    }
+        for (BrickController brick : this.arena.getBricks()) {
+            Position collision = brick.getPosition();
 
-    private BrickController getBricks (Position pos)
-    {
-        Iterator<BrickController> it = bricks.iterator();
-        while (it.hasNext())
+            if (pos.equals(collision))
+            {
+                ball.processCollision(brick);
+                arena.collide(collision);
+                score += brick.getScore();
+
+                if (this.arena.getBricks().size() == 0)
+                {
+                    increaseLevel();
+                    return false;
+                }
+                return true;
+            }
+
+        }
+
+        if (pos.getY() == yBarrier + height - 1)
         {
-            BrickController next = it.next();
-            if (pos.equals(next.getPosition()))
-                return next;
+            int x = ship.getPosition().getX();
+
+            for (int i = x; i <= x + ship.getShipLength(); i++) {
+                if (pos.getX() == i) {
+                    ball.processCollision(ship.getSpeed(), x + 1 - i);
+                    return true;
+                }
+            }
         }
-        return null;
+
+        return false;
     }
 
-    public void collide(Position pos)
-    {
-        BrickController brick = getBricks(pos);
-        int brickLevel = brick.getLevel();
-        bricks.remove(brick);
 
-        if(brickLevel == 0) {
-            BrickController newBrick = new NormalBrickController(brick.getPosition());
-            newBrick.setScore(brick.getScore() + newBrick.getScore());
-            bricks.add(newBrick);
-        }
-        if (brickLevel == 2) {
-            BrickController newBrick2 = new SpecialBrickController(brick.getPosition());
-            newBrick2.setScore(brick.getScore() + newBrick2.getScore());
-            bricks.add(newBrick2);
-        }
-    }
 
-    public List<BrickController> getBricks(){
-        return this.bricks;
-    }
+
 
 }
 
