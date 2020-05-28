@@ -2,68 +2,52 @@ package Controller;
 
 import Model.*;
 
-import java.util.*;
-
 public class ArenaController {
     private Arena arena;
     private BallController ballController;
+    private BrickController brickController;
     private ShipController shipController;
 
     public ArenaController(Arena arena)
     {
         this.arena = arena;
-        this.ballController = new BallController(arena.getBall());
+        this.ballController = new BallController(arena.getBall(), arena.getWidth(), arena.getHeight());
+        this.brickController = new BrickController(arena.getBricks());
+        this.shipController = new ShipController(arena.getShip());
     }
 
-    private boolean checkCollisions() {
+    private void step(){
+        ballController.step();
+        checkCollisions();
+    }
+
+    private void checkCollisions() {
         Ball ball = arena.getBall();
         Ship ship = arena.getShip();
 
         for (Wall wall : arena.getWalls()) {
-            if (wall.getPosition().equals(ball.getPosition()))
-            {
+            if (wall.getPosition().equals(ball.getPosition())) {
                 //bola bateu na parede
+                ballController.hitWall(wall);
             }
-            if(ship.getPo)
-        }
-
-        for (BrickController brick : this.arena.getBricks()) {
-            Position collision = brick.getPosition();
-
-            if (pos.equals(collision))
-            {
-                ball.processCollision(brick);
-                arena.collide(collision);
-                score += brick.getScore();
-
-                if (this.arena.getBricks().size() == 0)
-                {
-                    increaseLevel();
-                    return false;
-                }
-                return true;
+            if(wall.getPosition().equals(ship.getRightExtreme())){
+                //ship bateu na parede do lado direito
+                ship.setPosition(ship.getPosition().left());
             }
-
-        }
-
-        if (pos.getY() == yBarrier + height - 1)
-        {
-            int x = ship.getPosition().getX();
-
-            for (int i = x; i <= x + ship.getShipLength(); i++) {
-                if (pos.getX() == i) {
-                    ball.processCollision(ship.getSpeed(), x + 1 - i);
-                    return true;
-                }
+            if(wall.getPosition().equals(ship.getLeftExtreme())){
+                //ship bateu na parede do lado esquerdo
+                ship.setPosition(ship.getPosition().right());
             }
         }
 
-        return false;
+        for (Brick brick : arena.getBricks()) {
+            if (brick.getPosition().equals(ball.getPosition())) {
+                //bola bateu no tijolo
+                ballController.hitBrick(brick);
+                brickController.hitBrick(brick);
+            }
+        }
     }
-
-
-
-
 
 }
 

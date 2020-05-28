@@ -8,7 +8,7 @@ import com.googlecode.lanterna.graphics.TextGraphics;
 public class Ship extends Element
 {
     private Position initPosition;
-    private int length = 7;
+    private int length = 7; //deve ser sempre um valor ímpar
     private int lifes = 3;
 
     public Ship(Position pos)
@@ -45,5 +45,17 @@ public class Ship extends Element
 
     public void startPosition(){
         this.position = new Position(initPosition.getX(), initPosition.getY());
+    }
+
+    public int getLength(){
+        return this.length;
+    }
+
+    public Position getRightExtreme(){
+        return new Position(position.getX() + Math.floorDiv(length,2), position.getY());
+    }
+
+    public Position getLeftExtreme(){
+        return new Position(position.getX() - Math.floorDiv(length,2), position.getY());
     }
 }

@@ -51,5 +51,13 @@ public class Arena {
     public List<Wall> getWalls() { return this.walls; }
     public List<Brick> getBricks() { return this.bricks; }
     public void stop() { this.run = false; }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
 

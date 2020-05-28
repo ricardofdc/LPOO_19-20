@@ -1,100 +1,68 @@
 package Controller;
 
 import Model.Ball;
-import Model.Element;
+import Model.Brick;
 import Model.Position;
-import java.util.*;
+import Model.Wall;
 
-public class BallController
-{
+public class BallController {
+    private final int boardWidth;
+    private final int boardHeight;
     private Ball ball;
+    private int verticalDir;    // -1 -> baixo      || 0 -> parado  || 1 -> cima
+    private int horizontalDir;  // -1 -> esquerda   || 0 -> parado  || 1 -> direita
 
-    public BallController(Ball ball)
-    {
+    public BallController(Ball ball, int boardWidth, int boardHeight) {
         this.ball = ball;
+        this.verticalDir = 0;
+        this.horizontalDir = 0;
+        this.boardWidth = boardWidth;
+        this.boardHeight = boardHeight;
     }
 
-    public void reset()
-    {
+    public void reset() {
         this.ball.startPosition();
     }
 
-    public void processCollision(Position collision, boolean barrierCollide)
-    {
-        if (barrierCollide)
-        {
-            if (collision.getX() == position.getX() + 1)
-                this.x = -1;
-            else if (collision.getX() == position.getX() - 1)
-                this.x = 1;
-        }
-        else
-        {
-            if (collision.getY() == position.getY() + 1)
-                this.y = -1;
-            else if (collision.getY() == position.getY() - 1)
-                this.y = 1;
-        }
-    }
-
-    public void processCollision(int dir, int posPlayer)
-    {
-        switch (dir)
-        {
-            case 0: {
-                this.x = dir * this.x;
-                break;
-            }
-            case 1:
-            {
-                this.x = -1;
-                break;
-            }
+    public void step() {
+        switch (verticalDir){
             case -1:
-            {
-                this.x = 1;
+                ball.setPosition(ball.getPosition().down());
                 break;
-            }
+            case 1:
+                ball.setPosition(ball.getPosition().up());
+            default:
+                break;
         }
-        this.y = -1;
-    }
-
-    public void processCollision(BrickController brick)
-    {
-        String collide = null;
-
-        for (Position pos : brick.neighbor().keySet())
-            if (position.equals(pos)) collide = brick.neighbor().get(pos);
-
-        if (collide == "middle")
-            this.y = 1;
-
-        else if(collide == "left1") {
-            this.x = -1;
-            this.y = -1;
-        }
-
-        else if(collide == "left2") {
-            this.x = -1;
-            this.y = 1;
-        }
-
-        else if(collide == "right1") {
-            this.x = 1;
-            this.y = 1;
-        }
-
-        else if(collide == "right2") {
-            this.x = 1;
-            this.y = -1;
+        switch (horizontalDir){
+            case -1:
+                ball.setPosition(ball.getPosition().left());
+            case 1:
+                ball.setPosition(ball.getPosition().right());
+            default:
+                break;
         }
     }
 
-    public void isMoving() {
-        this.stop = false;
-        this.y = -1;
+    public void hitWall(Wall wall) {
+        Position pos = wall.getPosition();
+
+        if(pos.getX() == 0){
+            //bateu na parede da esquerda
+        }
+        if(pos.getX() == boardWidth){
+            //bateu na parede da direita
+        }
+        if(pos.getY() == 0){
+            //bateu na parede da esquerda
+        }
+        if(pos.getY() == boardHeight){
+            //bateu na parede da direita
+        }
     }
 
-    public Position moving() { return new Position(position.getX() + x, position.getY() + y); }
-    public boolean isStopped() { return stop; }
+    public void hitBrick(Brick brick) {
+        Position pos = brick.getPosition();
+
+    }
 }
