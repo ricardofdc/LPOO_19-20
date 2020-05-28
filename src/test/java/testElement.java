@@ -7,15 +7,14 @@ import static org.junit.Assert.*;
 public class testElement
 {
     @Test
-    public void testGetSet()
+    public void testElementPos()
     {
         Position pos = new Position(1,2);
-        Position pos2 = new Position(3,4);
+        Position pos2 = new Position(4,5);
+        Element ele = new Element(pos);
 
-        Element pe = new Element(pos);
-
-        assertEquals(pe.getPosition(), pos);
-        pe.setPosition(pos2);
-        assertEquals(pe.getPosition(), pos2);
+        assertEquals(ele.getPosition(), pos);
+        ele.setPosition(pos2);
+        assertEquals(ele.getPosition(), pos2);
     }
 }

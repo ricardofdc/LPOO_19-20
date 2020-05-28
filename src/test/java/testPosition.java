@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 public class testPosition
 {
     @Test
-    public void testPositionGetsSets()
+    public void testGetPos()
     {
         Position position = new Position(1,2);
 
@@ -17,8 +17,8 @@ public class testPosition
     public void testEquals()
     {
         Position pos1 = new Position(1,2);
-        Position pos2 = new Position(3,4);
-        Position pos3 = new Position(3,4);
+        Position pos2 = new Position(4,5);
+        Position pos3 = new Position(4,5);
 
         assertTrue(pos2.equals(pos3));
         assertFalse(pos1.equals(pos2));

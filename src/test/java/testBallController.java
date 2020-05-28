@@ -7,48 +7,41 @@ import static org.junit.Assert.*;
 public class testBallController
 {
     @Test
-    public void testConst()
+    public void testBallInit()
     {
         Position pos = new Position(3, 4);
         BallController ball = new BallController(pos);
-
         assertEquals(ball.isStopped(), true);
-
     }
 
     @Test
-    public void testStopped()
+    public void testBallMove()
+    {
+        Position pos = new Position(14, 15);
+        BallController ball = new BallController(pos);
+        ball.isMoving();
+        ball.setPosition(ball.moving());
+        assertNotEquals(pos, ball.getPosition());
+    }
+
+    @Test
+    public void testBallIsStopped()
     {
         Position pos = new Position(3, 4);
         BallController ball = new BallController(pos);
-
         ball.isMoving();
-
         assertEquals(ball.isStopped(), false);
     }
 
     @Test
-    public void testReset()
+    public void testBallReset()
     {
-        Position pos = new Position(14, 15);
+        Position pos = new Position(3, 4);
         BallController ball = new BallController(pos);
-
         ball.isMoving();
         ball.setPosition(ball.moving());
         ball.reset(pos);
-
         assertEquals(ball.getPosition(), pos);
         assertEquals(ball.isStopped(), true);
-    }
-
-    @Test
-    public void testMove()
-    {
-        Position pos = new Position(14, 15);
-        BallController ball = new BallController(pos);
-
-        ball.isMoving();
-        ball.setPosition(ball.moving());
-        assertNotEquals(pos, ball.getPosition());
     }
 }

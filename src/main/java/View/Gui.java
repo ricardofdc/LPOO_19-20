@@ -17,8 +17,11 @@ public class Gui
 
     private List<Wall> barriers;
     private Ship ship;
+    private Wall wall;
     private List<Brick> bricks;
     private Ball ball;
+    private Element element;
+    private Position posi;
 
     public Gui(int w, int h, Position pos)
     {
@@ -33,6 +36,7 @@ public class Gui
 
         this.barriers = new ArrayList<>();
         this.bricks = new ArrayList<>();
+        this.posi = pos;
     }
 
     private void drawScore(TextGraphics graphics)
@@ -62,14 +66,41 @@ public class Gui
         graphics.putString(new TerminalPosition(9, 31), "" + level);
     }
 
+    public void drawBall(TextGraphics graphics)
+    {
+        Position pos = ball.pos;
+        graphics.setForegroundColor(TextColor.Factory.fromString("#001a1a"));
+        graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "\u25cf");
+    }
+
+    public void drawShip(TextGraphics graphics)
+    {
+        int shipLength = ship.shipLength;
+        Position position = ship.position;
+        String ship = "";
+        for (int i = 0; i < shipLength; i++)
+            ship += "\u2580";
+
+        graphics.setForegroundColor(TextColor.Factory.fromString("#993d00"));
+        graphics.putString(new TerminalPosition(position.getX(), position.getY()), ship);
+    }
+
+   /* public void drawBarriers(TextGraphics graphics)
+    {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
+        graphics.putString((new TerminalPosition(xBarrier, yBarrier)), "\u2023");
+    }*/
+
     public void draw(TextGraphics graphics)
     {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#85adad"));
         graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        drawInstructions(graphics);
         drawScore(graphics);
         drawLifes(graphics);
         drawLevel(graphics);
-        drawInstructions(graphics);
+        drawShip(graphics);
+        drawBall(graphics);
 
         for (Wall barrier : barriers)
             barrier.draw(graphics);
@@ -81,9 +112,6 @@ public class Gui
             Brick next = it.next();
             next.draw(graphics);
         }
-
-        ship.draw(graphics);
-        ball.draw(graphics);
     }
 
     private List<Wall> barriersParser(List<Position> borders)
@@ -96,30 +124,26 @@ public class Gui
         return barrier;
     }
 
-    private List<Brick> wallParser(List<BrickController> bricks)
+    private List<Brick> bricksParser(List<BrickController> bricks)
     {
-        List<Brick> list = new ArrayList<>();
+        List<Brick> brickList = new ArrayList<>();
 
         for (BrickController brick : bricks)
         {
             if(brick.getId().equals("normal"))
-            {
-                list.add(new NormalBrick(brick.getPosition()));
-            }
+                brickList.add(new NormalBrick(brick.getPosition()));
+
             if(brick.getId().equals("special"))
-            {
-                list.add(new SpecialBrick(brick.getPosition()) {
-                });
-            }
+                brickList.add(new SpecialBrick(brick.getPosition()));
         }
 
-        return list;
+        return brickList;
     }
     public void setLevel(int level){this.level = level;}
     public void setShip(Position pos) { this.ship = new Ship(pos); }
     public void setBall(Position pos) { this.ball = new Ball(pos); }
     public void setBarriers(List<Position> barriers) { this.barriers = barriersParser(barriers); }
-    public void setBricks(List<BrickController> bricks) { this.bricks = wallParser(bricks); }
+    public void setBricks(List<BrickController> bricks) { this.bricks = bricksParser(bricks); }
     public void setScore(int score) { this.score = score; }
     public void setLifes(int lifes) { this.lifes = lifes; }
 
