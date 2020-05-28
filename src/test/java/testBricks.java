@@ -8,23 +8,20 @@ import static org.junit.Assert.*;
 public class testBricks
 {
     @Test
-    public void testLevels()
+    public void testLevel()
     {
-        Position pos = new Position(12, 12);
+        Position pos = new Position(10, 10);
         BrickController normalBrick = new NormalBrickController(pos);
-
         assertEquals(normalBrick.getLevel(), 1);
-
     }
 
     @Test
-    public void testScores(){
-        Position pos = new Position(12, 12);
+    public void testScore(){
+        Position pos = new Position(10, 10);
         BrickController normalBrick = new NormalBrickController(pos);
-        BrickController normalBrick2 = new NormalBrickController(pos);
 
         assertEquals(normalBrick.getScore(), 5);
-        assertEquals(normalBrick.getScore(), normalBrick2.getScore());
+        assertEquals(normalBrick.getScore(), normalBrick.getScore());
 
     }
 }

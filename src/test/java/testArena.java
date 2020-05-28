@@ -8,9 +8,9 @@ import static org.junit.Assert.assertEquals;
 public class testArena
 {
     @Test
-    public void testConstr()
+    public void testArenaInit()
     {
-        Position pos = new Position(15, 15);
+        Position pos = new Position(10, 10);
         Arena arena = new Arena(10, 10, pos);
         assertEquals(arena.getScore(), 0);
     }
@@ -18,7 +18,7 @@ public class testArena
 
     @Test
     public void testGameOver(){
-        Position pos = new Position(15, 15);
+        Position pos = new Position(10, 10);
         Arena arena = new Arena(10, 10, pos);
         arena.gameOver();
         assertEquals(arena.getScore(), 0);
