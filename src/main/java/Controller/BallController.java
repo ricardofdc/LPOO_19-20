@@ -11,6 +11,7 @@ public class BallController {
     private Ball ball;
     private int verticalDir;    // -1 -> baixo      || 0 -> parado  || 1 -> cima
     private int horizontalDir;  // -1 -> esquerda   || 0 -> parado  || 1 -> direita
+    private Position previousPos;
 
     public BallController(Ball ball, int boardWidth, int boardHeight) {
         this.ball = ball;
@@ -22,9 +23,16 @@ public class BallController {
 
     public void reset() {
         this.ball.startPosition();
+        this.verticalDir = 0;
+        this.horizontalDir = 0;
+    }
+
+    public void startMoving(){
+        this.verticalDir = 1;
     }
 
     public void step() {
+        previousPos = ball.getPosition();
         switch (verticalDir){
             case -1:
                 ball.setPosition(ball.getPosition().down());
@@ -44,25 +52,47 @@ public class BallController {
         }
     }
 
-    public void hitWall(Wall wall) {
+    public boolean hitWall(Wall wall) { //return false -> jogo continua; return true -> perde uma vida
         Position pos = wall.getPosition();
 
         if(pos.getX() == 0){
             //bateu na parede da esquerda
+            horizontalDir = 1;
         }
         if(pos.getX() == boardWidth){
             //bateu na parede da direita
+            horizontalDir = -1;
         }
         if(pos.getY() == 0){
-            //bateu na parede da esquerda
+            //bateu na parede de cima
+            verticalDir = -1;
         }
         if(pos.getY() == boardHeight){
-            //bateu na parede da direita
+            //bateu na parede de baixo
+            return true;
         }
+        return false;
     }
 
-    public void hitBrick(Brick brick) {
-        Position pos = brick.getPosition();
+    public void hitBrick(int neighbours) {
+        Position pos = ball.getPosition();
 
+
+
+    }
+
+    public void hitShip(int i, int shipLenght) {
+        verticalDir = 1;
+
+        if (i < Math.floorDiv(shipLenght, 2)) {
+            //bola bateu na metade esquerda do ship
+            horizontalDir = -1;
+        } else if (i > shipLenght / 2) {
+            //bola bateu na metade direita do ship
+            horizontalDir = 1;
+        } else {
+            //bola bateu exatamente no meio
+            horizontalDir = 0;
+        }
     }
 }

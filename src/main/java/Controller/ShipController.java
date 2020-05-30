@@ -11,4 +11,9 @@ public class ShipController {
         this.ship = ship;
     }
 
+    public boolean lifeLost() {
+        ship.startPosition();
+        this.ship.decreaseLifes();
+        return this.ship.getLifes() == 0;
+    }
 }

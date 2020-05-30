@@ -42,7 +42,7 @@ public class ArenaCreator {
                     if(valueRead == '\n')
                         continue;
                     if(valueRead != '.'){
-                        Brick brick = new NormalBrick(new Position(j*3+1, i+1), Character.getNumericValue(valueRead));
+                        Brick brick = new Brick(new Position(j*3+1, i+1), Character.getNumericValue(valueRead));
                         arena.addBrick(brick);
                     }
                 }

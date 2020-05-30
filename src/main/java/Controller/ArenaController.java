@@ -28,7 +28,10 @@ public class ArenaController {
         for (Wall wall : arena.getWalls()) {
             if (wall.getPosition().equals(ball.getPosition())) {
                 //bola bateu na parede
-                ballController.hitWall(wall);
+                if(ballController.hitWall(wall)){
+                    //bola caiu
+                    lifeLost();
+                }
             }
             if(wall.getPosition().equals(ship.getRightExtreme())){
                 //ship bateu na parede do lado direito
@@ -43,10 +46,29 @@ public class ArenaController {
         for (Brick brick : arena.getBricks()) {
             if (brick.getPosition().equals(ball.getPosition())) {
                 //bola bateu no tijolo
-                ballController.hitBrick(brick);
-                brickController.hitBrick(brick);
+                int neighbours = brickController.hitBrick(brick.getPosition());
+                ballController.hitBrick(neighbours);
             }
         }
+
+        int i=0; //para saber qual a posição do ship que foi atingida
+        for (Position pos : ship.getActualPositions()) {
+            if(pos.equals(ball.getPosition())) {
+                //bola bateu no ship
+                ballController.hitShip(i, ship.getLength());
+            }
+            i++;
+        }
+    }
+
+    private void lifeLost() {
+        ballController.reset();
+        if(shipController.lifeLost())
+            gameOver();
+    }
+
+    private void gameOver() {
+        //TODO
     }
 
 }

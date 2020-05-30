@@ -1,4 +1,4 @@
-import View.Game;
+import Controller.Game;
 
 public class App {
 

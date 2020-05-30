@@ -1,8 +1,9 @@
-package View;
+package Controller;
 
-import Model.ArenaCreator;
-import Model.Position;
 import Model.Arena;
+import Model.ArenaCreator;
+import View.Display;
+import View.LanternaDisplay;
 
 import java.io.IOException;
 
