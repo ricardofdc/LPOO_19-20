@@ -1,3 +1,4 @@
+import Model.Ball;
 import Model.Position;
 import Controller.PlayGame.BallController;
 import org.junit.*;
@@ -9,38 +10,52 @@ public class testBallController
     public void testBallInit()
     {
         Position pos = new Position(3, 4);
-        BallController ball = new BallController(pos);
-        assertEquals(ball.isStopped(), true);
+        Ball ball = new Ball(pos);
+        ball.startPosition();
+
+        assertEquals(pos, ball.getPosition());
     }
 
-    @Test
-    public void testBallMove()
-    {
-        Position pos = new Position(14, 15);
-        BallController ball = new BallController(pos);
-        ball.isMoving();
-        ball.setPosition(ball.moving());
-        assertNotEquals(pos, ball.getPosition());
-    }
 
     @Test
-    public void testBallIsStopped()
+    public void testBallMoveHorizontal()
     {
         Position pos = new Position(3, 4);
-        BallController ball = new BallController(pos);
-        ball.isMoving();
-        assertEquals(ball.isStopped(), false);
+        Position pos2 = new Position(4, 4);
+
+        Ball ball = new Ball(pos);
+
+        ball.moveBallHorizontal(1);
+
+        assertNotEquals(pos, ball.getPosition());
+        assertEquals(pos2, ball.getPosition());
+
     }
+
+   @Test
+   public void testBallMoveVertical()
+   {
+       Position pos = new Position(3, 4);
+       Position pos2 = new Position(3, 5);
+
+       Ball ball = new Ball(pos);
+
+       ball.moveBallVertical(-1);
+
+       assertNotEquals(pos, ball.getPosition());
+       assertEquals(pos2, ball.getPosition());
+
+   }
 
     @Test
     public void testBallReset()
     {
         Position pos = new Position(3, 4);
-        BallController ball = new BallController(pos);
-        ball.isMoving();
-        ball.setPosition(ball.moving());
-        ball.reset(pos);
+        Ball ball = new Ball(pos);
+
+        BallController ballcont = new BallController(ball, 65, 30);
+        ballcont.startMoving();
+        ballcont.reset();
         assertEquals(ball.getPosition(), pos);
-        assertEquals(ball.isStopped(), true);
     }
 }
