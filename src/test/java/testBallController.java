@@ -1,7 +1,6 @@
 import Model.Position;
-import Controller.BallController;
+import Controller.PlayGame.BallController;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 
 public class testBallController

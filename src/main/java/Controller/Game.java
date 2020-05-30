@@ -2,21 +2,18 @@ package Controller;
 
 import View.Display;
 import View.LanternaDisplay;
-import com.googlecode.lanterna.input.KeyStroke;
 
 import java.io.IOException;
 
 public class Game {
 
     private Display display;
-    private State state;
-    private MainController controller;
+    private StateController stateController;
 
     private final int FPS = 40;
 
     public Game() {
-        state = new MainMenuState();
-        controller = new MainMenuController();
+        stateController = new MainMenuController();
         display = new LanternaDisplay();
     }
 
@@ -24,9 +21,9 @@ public class Game {
         new Thread(() -> {
             //fazer draw do jogo
             try {
-                System.out.println(state.toString());
-                while (!state.toString().equals("CloseGame")) {
-                    display.draw(state);
+                System.out.println(stateController.toString());
+                while (!stateController.toString().equals("CloseGame")) {
+                    display.draw(stateController);
                     Thread.sleep(1000/FPS);
                 }
             } catch (IOException | InterruptedException e) {
@@ -36,13 +33,12 @@ public class Game {
 
         new Thread(() -> {
                 //obter inputs
-            while (!state.toString().equals("CloseGame")) {
-                KeyStroke key = display.getInput();
-                String input = "";
-
-                //TODO: passar o key para string
-
-                controller.processInput(input);
+            while (!stateController.toString().equals("CloseGame")) {
+                String input = display.getInput();
+                if(input.equals("EOF")){
+                    stateController = new CloseGameController();
+                }
+                stateController = stateController.processInput(input);
             }
         }).start();
     }

@@ -1,4 +1,4 @@
-package Controller;
+package Controller.PlayGame;
 
 import Model.Element;
 import Model.Position;

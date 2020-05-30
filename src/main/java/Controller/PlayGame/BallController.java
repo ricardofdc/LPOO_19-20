@@ -1,7 +1,6 @@
-package Controller;
+package Controller.PlayGame;
 
 import Model.Ball;
-import Model.Brick;
 import Model.Position;
 import Model.Wall;
 
@@ -76,8 +75,6 @@ public class BallController {
 
     public void hitBrick(int neighbours) {
         Position pos = ball.getPosition();
-
-
 
     }
 

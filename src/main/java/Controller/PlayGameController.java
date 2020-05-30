@@ -1,24 +1,37 @@
 package Controller;
 
+import Controller.PlayGame.BallController;
+import Controller.PlayGame.BrickController;
+import Controller.PlayGame.ShipController;
 import Model.*;
 
-public class ArenaController implements MainController {
-    private Arena arena;
-    private BallController ballController;
-    private BrickController brickController;
-    private ShipController shipController;
+public class PlayGameController implements StateController {
+    private final Arena arena;
+    private final BallController ballController;
+    private final BrickController brickController;
+    private final ShipController shipController;
 
-    public ArenaController(Arena arena)
+    public PlayGameController(int level)
     {
-        this.arena = arena;
+        this.arena = new ArenaCreator().createArena(level);
         this.ballController = new BallController(arena.getBall(), arena.getWidth(), arena.getHeight());
         this.brickController = new BrickController(arena.getBricks());
         this.shipController = new ShipController(arena.getShip());
     }
 
+    public Arena getArena(){
+        return arena;
+    }
+
     @Override
-    public void processInput(String input){
+    public StateController processInput(String input){
         //TODO
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayGame";
     }
 
     private void step(){

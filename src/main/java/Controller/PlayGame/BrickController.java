@@ -1,4 +1,4 @@
-package Controller;
+package Controller.PlayGame;
 
 import Model.Brick;
 import Model.Element;

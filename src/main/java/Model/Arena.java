@@ -1,8 +1,5 @@
 package Model;
 
-import Controller.BrickController;
-import Controller.ArenaController;
-
 import java.util.*;
 
 public class Arena {
@@ -31,8 +28,6 @@ public class Arena {
         this.level = level;
 
         this.run = false;
-
-        //resetAll();
     }
 
     public void addWall(Wall wall) {
@@ -50,7 +45,6 @@ public class Arena {
     public int getLevel() { return this.level; }
     public List<Wall> getWalls() { return this.walls; }
     public List<Brick> getBricks() { return this.bricks; }
-    public void stop() { this.run = false; }
 
     public int getWidth() {
         return width;

@@ -1,9 +1,17 @@
 package Controller;
 
-public class MainMenuController implements MainController {
+public class MainMenuController implements StateController {
 
     @Override
-    public void processInput(String input) {
+    public StateController processInput(String input) {
+        if (input.equals(" ")) {
+            return new SelectLevelController();
+        }
+        return this;
+    }
 
+    @Override
+    public String toString() {
+        return "MainMenu";
     }
 }

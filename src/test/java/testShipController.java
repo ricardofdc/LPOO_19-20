@@ -1,7 +1,6 @@
 import Model.Position;
-import Controller.ShipController;
+import Controller.PlayGame.ShipController;
 import org.junit.*;
-import static org.junit.Assert.*;
 
 public class testShipController
 {

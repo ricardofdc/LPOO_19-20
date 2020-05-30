@@ -1,9 +1,5 @@
 package Model;
 
-import com.googlecode.lanterna.SGR;
-import com.googlecode.lanterna.TerminalPosition;
-import com.googlecode.lanterna.TextColor;
-import com.googlecode.lanterna.graphics.TextGraphics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +19,6 @@ public class Ship extends Element
         for(int i= pos.getX() - Math.floorDiv(length,2); i <= pos.getX() + Math.floorDiv(length,2); i++){
             this.actualPositions.add(new Position(i, pos.getY()));
         }
-    }
-
-    public void draw(TextGraphics graphics)
-    {
-       String ship = "";
-        for (int i = 0; i < length; i++)
-            ship += "\u2580";
-
-        graphics.setForegroundColor(TextColor.Factory.fromString("#993d00"));
-        graphics.putString(new TerminalPosition(position.getX(), position.getY()), ship);
     }
 
     public int getLifes() {
