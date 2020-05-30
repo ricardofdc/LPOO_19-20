@@ -1,5 +1,5 @@
 package Controller;
 
 public interface MainController {
-    void processInput();
+    void processInput(String input);
 }

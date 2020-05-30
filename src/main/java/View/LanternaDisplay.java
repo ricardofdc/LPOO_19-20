@@ -1,9 +1,9 @@
 package View;
 
 import Controller.State;
-import Model.Arena;
 import com.googlecode.lanterna.TerminalPosition;
 import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.screen.Screen;
@@ -15,9 +15,8 @@ import java.io.IOException;
 public class LanternaDisplay implements Display {
     private Screen screen;
     private TextGraphics graphics;
-    private Arena arena;
-    private Gui gui;
-    private boolean run;
+
+    private final String BACKGROUND_COLOR = "#85adad";
 
     public LanternaDisplay () {
         try
@@ -52,6 +51,12 @@ public class LanternaDisplay implements Display {
     public void draw(State state) {
         screen.clear();
         graphics = screen.newTextGraphics();
+        graphics.setBackgroundColor(TextColor.Factory.fromString(BACKGROUND_COLOR));
+        graphics.fillRectangle(
+                new TerminalPosition(0, 0),
+                new TerminalSize(60, 35),
+                ' '
+        );
 
         switch (state.toString()){
             case "MainMenu":
@@ -69,14 +74,18 @@ public class LanternaDisplay implements Display {
     }
 
     private void drawMainMenu() {
+        System.out.println("drawMainMenu");
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         graphics.putString(new TerminalPosition(5, 5), "MAINMENU");
     }
 
     private void drawPlayGame() {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         graphics.putString(new TerminalPosition(5, 5), "PLAYGAME");
     }
 
     private void drawGameOver() {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         graphics.putString(new TerminalPosition(5, 5), "GAMEOVER");
     }
 }
