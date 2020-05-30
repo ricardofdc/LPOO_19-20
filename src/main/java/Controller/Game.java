@@ -11,8 +11,10 @@ public class Game {
 
     private Display display;
     private Arena arena;
+    private State state;
 
     public Game() {
+
         arena = new ArenaCreator().createArena(1);
 
         display = new LanternaDisplay(arena);

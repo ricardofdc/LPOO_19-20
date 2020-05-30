@@ -16,4 +16,12 @@ public class ShipController {
         this.ship.decreaseLifes();
         return this.ship.getLifes() == 0;
     }
+
+    public void moveLeft(){
+        ship.setPosition(ship.getPosition().left());
+    }
+
+    public void moveRight(){
+        ship.setPosition(ship.getPosition().right());
+    }
 }

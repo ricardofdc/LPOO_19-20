@@ -2,7 +2,7 @@ package Controller;
 
 import Model.*;
 
-public class ArenaController {
+public class ArenaController implements MainController {
     private Arena arena;
     private BallController ballController;
     private BrickController brickController;
@@ -14,6 +14,10 @@ public class ArenaController {
         this.ballController = new BallController(arena.getBall(), arena.getWidth(), arena.getHeight());
         this.brickController = new BrickController(arena.getBricks());
         this.shipController = new ShipController(arena.getShip());
+    }
+
+    public void processInput(){
+        //TODO
     }
 
     private void step(){
@@ -35,11 +39,11 @@ public class ArenaController {
             }
             if(wall.getPosition().equals(ship.getRightExtreme())){
                 //ship bateu na parede do lado direito
-                ship.setPosition(ship.getPosition().left());
+                shipController.moveLeft();
             }
             if(wall.getPosition().equals(ship.getLeftExtreme())){
                 //ship bateu na parede do lado esquerdo
-                ship.setPosition(ship.getPosition().right());
+                shipController.moveRight();
             }
         }
 
