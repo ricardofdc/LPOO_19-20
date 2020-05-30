@@ -10,23 +10,21 @@ import java.io.IOException;
 public class Game {
 
     private Display display;
-    private Arena arena;
     private State state;
+    private MainController controller;
 
     public Game() {
-
-        arena = new ArenaCreator().createArena(1);
-
-        display = new LanternaDisplay(arena);
-        display.start();
+        state = new MainMenuState();
+        controller = new MainMenuController();
+        controller = new MainMenuController();
     }
 
     public void run() {
         new Thread(() -> {
+            //atualizar o Model e o State
             try {
-                while (display.getRun()) {
-                    display.update();
-                    display.draw();
+                while (!state.toString().equals("CloseGame")) {
+                    display.draw(state);
                     Thread.sleep(10);
                 }
             } catch (IOException | InterruptedException e) {
@@ -34,7 +32,13 @@ public class Game {
             }
         }).start();
 
-        new Thread(() ->
-                display.keyStrokeListener()).start();
+        new Thread(() -> {
+                //obter inputs
+            while (!state.toString().equals("CloseGame")) {
+
+
+
+            }
+        }).start();
     }
 }

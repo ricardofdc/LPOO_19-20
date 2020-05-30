@@ -1,12 +1,11 @@
 package View;
 
+import Controller.State;
+import com.googlecode.lanterna.input.KeyStroke;
+
 import java.io.IOException;
 
-public interface Display
-{
-    void start();
-    void keyStrokeListener();
-    boolean getRun();
-    void update();
-    void draw() throws IOException;
+public interface Display {
+    KeyStroke getInput();
+    void draw(State state) throws IOException;
 }

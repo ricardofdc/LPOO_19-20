@@ -68,11 +68,11 @@ public class Gui
 
     public void drawBall(TextGraphics graphics)
     {
-        Position pos = ball.pos;
+        Position pos = ball.getPosition();
         graphics.setForegroundColor(TextColor.Factory.fromString("#001a1a"));
         graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "\u25cf");
     }
-
+/*
     public void drawShip(TextGraphics graphics)
     {
         int shipLength = ship.shipLength;
@@ -85,12 +85,14 @@ public class Gui
         graphics.putString(new TerminalPosition(position.getX(), position.getY()), ship);
     }
 
+ */
+
    /* public void drawBarriers(TextGraphics graphics)
     {
         graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
         graphics.putString((new TerminalPosition(xBarrier, yBarrier)), "\u2023");
     }*/
-
+/*
     public void draw(TextGraphics graphics)
     {
         graphics.setBackgroundColor(TextColor.Factory.fromString("#85adad"));
@@ -114,6 +116,8 @@ public class Gui
         }
     }
 
+ */
+
     private List<Wall> barriersParser(List<Position> borders)
     {
         List<Wall> barrier = new ArrayList<>();
@@ -123,7 +127,7 @@ public class Gui
 
         return barrier;
     }
-
+/*
     private List<Brick> bricksParser(List<BrickController> bricks)
     {
         List<Brick> brickList = new ArrayList<>();
@@ -139,11 +143,13 @@ public class Gui
 
         return brickList;
     }
+
+ */
     public void setLevel(int level){this.level = level;}
     public void setShip(Position pos) { this.ship = new Ship(pos); }
     public void setBall(Position pos) { this.ball = new Ball(pos); }
     public void setBarriers(List<Position> barriers) { this.barriers = barriersParser(barriers); }
-    public void setBricks(List<BrickController> bricks) { this.bricks = bricksParser(bricks); }
+    //public void setBricks(List<BrickController> bricks) { this.bricks = bricksParser(bricks); }
     public void setScore(int score) { this.score = score; }
     public void setLifes(int lifes) { this.lifes = lifes; }
 
