@@ -1,8 +1,9 @@
 package Controller;
 
 public class MainMenuController implements MainController {
+
     @Override
-    public void processInput() {
+    public void processInput(String input) {
 
     }
 }

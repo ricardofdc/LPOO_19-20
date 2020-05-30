@@ -16,7 +16,8 @@ public class ArenaController implements MainController {
         this.shipController = new ShipController(arena.getShip());
     }
 
-    public void processInput(){
+    @Override
+    public void processInput(String input){
         //TODO
     }
 
