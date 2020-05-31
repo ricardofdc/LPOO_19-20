@@ -30,7 +30,7 @@ public class Ship extends Element
     }
 
     public void moveLeft(){
-        this.position = this.position.left();
+        this.setPosition(this.getPosition().left());
         List<Position> newPositions = new ArrayList<>();
         for(Position pos: actualPositions){
             newPositions.add(pos.left());
@@ -39,7 +39,7 @@ public class Ship extends Element
     }
 
     public void moveRight(){
-        this.position = this.position.right();
+        this.setPosition(this.getPosition().right());
         List<Position> newPositions = new ArrayList<>();
         for(Position pos: actualPositions){
             newPositions.add(pos.right());
@@ -48,10 +48,10 @@ public class Ship extends Element
     }
 
     public void startPosition(){
-        this.position = new Position(initPosition.getX(), initPosition.getY());
+        this.setPosition(new Position(initPosition.getX(), initPosition.getY()));
         this.actualPositions = new ArrayList<>();
-        for(int i= position.getX() - Math.floorDiv(length,2); i <= position.getX() + Math.floorDiv(length,2); i++){
-            this.actualPositions.add(new Position(i, position.getY()));
+        for(int i= getPosition().getX() - Math.floorDiv(length,2); i <= getPosition().getX() + Math.floorDiv(length,2); i++){
+            this.actualPositions.add(new Position(i, getPosition().getY()));
         }
     }
 
