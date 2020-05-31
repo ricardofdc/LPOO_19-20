@@ -7,17 +7,18 @@ This project was developed by Ricardo Cardoso (up201604686@fe.up.pt) and Marta L
 ## Implemented Features
 - [x] **Arena** - with insurmountable barrier
 - [x] **Platform** - the player must be able to move the platform side to side when arrow left or arrow right are pressed.
+- [x] **Bouncing ball** - must collide with brick and barriers
+- [x] **Normal bricks** - must disappear once they are hit by the ball
+- [x] **Collision detection** 
+- [x] **Menu and Game Over Screen** - main menu must have the title of the game and its instructions, game over screen must have options to quit or play again
+- [x] **Lifes** - how many lifes the player has, must decrease whenever the player can't catch the ball
+- [x] **Score** - must increase differently depending on the type of bricks that are hit 
+- [x] **Levels** - 1st level must start with normals bricks only; difficulty increases throughout the levels -> more special bricks, less normal bricks
+- [x] **Special bricks** - must take more hits till they disappear 
 
 ## Planned Features
-- [ ] **Bouncing ball** - must collide with brick and barriers
-- [ ] **Normal bricks** - must disappear once they are hit by the ball
-- [ ] **Special bricks** - must take more hits till they disappear / increase platform size / decrease platform size
-- [ ] **Collision detection** 
 - [ ] **Enemies** - must throw bombs; must disappear once it is hit 3 times by the bouncing ball
-- [ ] **Score** - must increase differently depending on the type of bricks that are hit 
-- [ ] **Lifes** - how many lifes the player has, must decrease whenever the player can't catch the ball
-- [ ] **Levels** - 1st level must start with normals bricks only; difficulty increases throughout the levels -> more special bricks, less normal bricks, more enemies 
-- [ ] **Menu and Game Over Screen** - main menu must have the title of the game and its instructions, game over screen must have options to quit or play again
+
 
 ## Design 
 ### 1. Separating the Game's Modules
@@ -50,9 +51,22 @@ We followed **Abstract Factory** as we have a family of products that is designe
 #### 2.3) Implementation
 The objects instantiation is made with **Element** by saving the position, working together with each subclass's constructor (ex: Ball, Ship, Brick, Wall). 
 
+![element](element.png) 
+
 #### 2.4) Consequences
 Promoting consistency around the models mentioned above, since they all have a Position attribute and functions that revolve around it throughout the code that are always accessed the same way
 
+### 3. Menu Management
+#### 3.1) Problem in Context 
+TODO: write about state pattern
+#### 3.2) The Pattern
+TODO: write about state pattern
+#### 3.3) Implementation
+TODO: write about state pattern
+![state](state.png) 
+
+#### 3.4) Consequences
+TODO: write about state pattern
 
 ## Know Code Smells and Refactoring Suggestions 
 ### 1. Speculative Generality
