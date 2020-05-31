@@ -109,8 +109,8 @@ public class LanternaDisplay implements Display {
     private void drawMainMenu() {
 
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(new TerminalPosition(0, 23), "               Press 'space' to choose a level              ");
-        graphics.putString(new TerminalPosition(0, 24), "                 Press 's' to see highscores                ");
+        graphics.putString(new TerminalPosition(0, 22), "               Press 'space' to choose a level              ");
+        graphics.putString(new TerminalPosition(0, 23), "                 Press 's' to see highscores                ");
         graphics.putString(new TerminalPosition(0, 26), "                       Instructions:                        ");
         graphics.putString(new TerminalPosition(0, 27), "       Press left and right arrows to move the paddle       ");
         graphics.putString(new TerminalPosition(0, 28), "              Press up arrow to start the game              ");

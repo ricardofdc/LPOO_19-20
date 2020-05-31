@@ -43,6 +43,9 @@ public class ArenaCreator {
                     }
                 }
             }
+            buffer.close();
+            inputReader.close();
+            inputStream.close();
             return arena;
 
         } catch (IOException e) {

@@ -15,13 +15,13 @@ public class GameOverController implements StateController{
     @Override
     public StateController processInput(String input) {
         if(!success)
-            return new QuitGameController();
+            return new QuitGameController(score);
 
         switch (input){
             case " ":
                 return new PlayGameController(level+1, score);
             case "q":
-                return new QuitGameController();
+                return new QuitGameController(score);
         }
         return this;
     }

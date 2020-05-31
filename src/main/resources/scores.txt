@@ -1,0 +1,4 @@
+Andre 100
+Ricardo 50
+Rui 5
+Jorge 0

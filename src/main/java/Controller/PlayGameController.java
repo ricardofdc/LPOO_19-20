@@ -38,7 +38,7 @@ public class PlayGameController implements StateController {
                 checkShipCollisions();
                 break;
             case "q":
-                return new QuitGameController();
+                return new QuitGameController(arena.getScore());
         }
 
         return this;
