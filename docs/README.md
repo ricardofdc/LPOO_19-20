@@ -72,15 +72,17 @@ The classes can be found in the following files:
 
 
 #### 2.4) Consequences
-Promoting consistency around the models mentioned above, since they all have a Position attribute and functions that revolve around it throughout the code that are always accessed the same way
+Promoting consistency around the models mentioned above, since they all have a Position attribute and functions that revolve around it throughout the code that are always accessed the same way. 
 
 ### 3. Menu Management
 #### 3.1) Problem in Context 
-TODO: write about state pattern
+In order to have a clean and intuitive menu navigation, we decided we needed to find a way to allow different game stages.
+
 #### 3.2) The Pattern
-TODO: write about state pattern
+We followed a **State Pattern** so we could change the program depending on its state, wether it was the Main Menu, the game itself or even a final state when the game is over.  
+
 #### 3.3) Implementation
-TODO: write about state pattern
+Game has stateController as an attribute (StateController). This indicates the state of the game (MainMenu, SelectLevel, PlayGame, GameOver, CloseGame).
 
 ![state](state.png) 
 
@@ -95,7 +97,7 @@ The classes can be found in the following files:
 * [CloseGameController](../src/main/java/Controller/CloseGameController.java)
 
 #### 3.4) Consequences
-TODO: write about state pattern
+With this implementation we could easily localize the different states and make its transitions explicit. This way we could easily control what models should be updated, which functions from the controller should be called and what should be drawn on the screen depending on the active state.
 
 ## Know Code Smells and Refactoring Suggestions 
 ### 1. Speculative Generality
