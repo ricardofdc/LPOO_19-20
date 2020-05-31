@@ -67,7 +67,7 @@ The classes can be found in the following files:
 * [Element](../src/main/java/Model/Element.java)
 * [Ship](../src/main/java/Model/Ship.java)
 * [Brick](../src/main/java/Model/Brick.java)
-+ [Ball](../src/main/java/Model/Ball.java)
+* [Ball](../src/main/java/Model/Ball.java)
 * [Wall](../src/main/java/Model/Wall.java)
 
 
@@ -110,3 +110,6 @@ And in order to process it we have a sequence of if statements that calls difere
 ## Testing
 ![coveragereport](coverage.png) 
 
+TODO add mutation report here
+
+## Self-Evaluation
