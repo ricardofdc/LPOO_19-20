@@ -21,7 +21,6 @@ public class Game {
         new Thread(() -> {
             //fazer draw do jogo
             try {
-                System.out.println(stateController.toString());
                 while (!stateController.toString().equals("CloseGame")) {
                     if (stateController.toString().equals("PlayGame")) {
                         stateController = ((PlayGameController) stateController).step();
@@ -44,21 +43,5 @@ public class Game {
                 stateController = stateController.processInput(input);
             }
         }).start();
-/*
-        new Thread(() -> {
-            //chamar função step do jogo
-            while (!stateController.toString().equals("CloseGame")) {
-                if (stateController.toString().equals("PlayGame")) {
-                    ((PlayGameController) stateController).step();
-                }
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-
- */
     }
 }

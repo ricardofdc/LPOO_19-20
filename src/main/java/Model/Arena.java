@@ -12,10 +12,9 @@ public class Arena {
     private final int height;
     private int score;
     private final int level;
-    private boolean run;
 
 
-    public Arena(Ship ship, Ball ball, int width, int height, int level) {
+    public Arena(Ship ship, Ball ball, int width, int height, int level, int score) {
         this.ship = ship;
         this.ball = ball;
         this.walls = new ArrayList<>();
@@ -24,10 +23,8 @@ public class Arena {
         this.width = width;
         this.height = height;
 
-        this.score = 0;
+        this.score = score;
         this.level = level;
-
-        this.run = false;
     }
 
     public void addWall(Wall wall) {

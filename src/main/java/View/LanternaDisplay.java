@@ -1,6 +1,8 @@
 package View;
 
+import Controller.GameOverController;
 import Controller.PlayGameController;
+import Controller.QuitGameController;
 import Controller.StateController;
 import Model.*;
 import com.googlecode.lanterna.SGR;
@@ -19,10 +21,13 @@ import java.io.IOException;
 public class LanternaDisplay implements Display {
     private Screen screen;
     private TextGraphics graphics;
-    private int width = 60, height = 30;
+    private final int width = 60;
+    private final int height = 30;
     private Arena arena;
 
     private final String BACKGROUND_COLOR = "#85adad";
+
+    private final int NUM_LEVELS = 4;
 
     public LanternaDisplay () {
         try {
@@ -64,7 +69,7 @@ public class LanternaDisplay implements Display {
 
         switch (state.toString()){
             case "GameOver":
-                drawGameOver();
+                drawGameOver(((GameOverController)state).getSuccess());
                 break;
             case "MainMenu":
                 drawMainMenu();
@@ -77,7 +82,8 @@ public class LanternaDisplay implements Display {
                 drawSelectLevel();
                 break;
             case "QuitGame":
-                drawQuitGame();
+                String name = ((QuitGameController)state).getName();
+                drawQuitGame(name);
                 break;
             default:
                 break;
@@ -85,14 +91,17 @@ public class LanternaDisplay implements Display {
         screen.refresh();
     }
 
-    private void drawQuitGame() {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(new TerminalPosition(5, 5), "QUITGAME");
+    private void drawQuitGame(String name) {
+        drawHeader();
+        graphics.putString(new TerminalPosition(20, 18), "Name: " + name);
+        graphics.putString(new TerminalPosition(0, 23), "  Press 'ESC' to go to main menu without saving your score. ");
+        graphics.putString(new TerminalPosition(0, 24), "    Write your name and press 'ENTER' to save your score.   ");
+
     }
 
     private void drawSelectLevel() {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(new TerminalPosition(0, 24), "        Press a number from 1 to 3 to choose a level        ");
+        graphics.putString(new TerminalPosition(0, 24), "        Press a number from 1 to " + NUM_LEVELS + " to choose a level        ");
 
         drawHeader();
     }
@@ -118,6 +127,10 @@ public class LanternaDisplay implements Display {
         graphics.putString(new TerminalPosition(0, 12), "____________________________________________________________");
         graphics.setForegroundColor(TextColor.Factory.fromString("#cc5200"));
         graphics.putString(new TerminalPosition(0, 11), "                        BRICKBREAKER                        ");
+
+        graphics.setBackgroundColor(TextColor.Factory.fromString(BACKGROUND_COLOR));
+        graphics.disableModifiers(SGR.BOLD);
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
     }
 
     private void drawPlayGame() {
@@ -127,9 +140,11 @@ public class LanternaDisplay implements Display {
         drawBall();
 
         graphics.putString(new TerminalPosition(2, 27), "Level:" + arena.getLevel());
-        graphics.putString(new TerminalPosition(2, 28), "Lifes:" + arena.getShip().getLifes());
+        graphics.putString(new TerminalPosition(2, 28), "Lives:" + arena.getShip().getLifes());
         graphics.putString(new TerminalPosition(2, 29), "Score:" + arena.getScore());
 
+        graphics.putString(new TerminalPosition(40, 27), "Press 'Q' to");
+        graphics.putString(new TerminalPosition(40, 28), "  give up.");
     }
 
     private void drawBall() {
@@ -178,8 +193,26 @@ public class LanternaDisplay implements Display {
         }
     }
 
-    private void drawGameOver() {
-        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(new TerminalPosition(5, 5), "GAMEOVER");
+    private void drawGameOver(boolean success) {
+        int level = arena.getLevel();
+        int score = arena.getScore();
+
+        drawHeader();
+
+        if (success){
+            graphics.putString(new TerminalPosition(0, 22), "                      CONGRATULATIONS!                      ");
+            graphics.putString(new TerminalPosition(0, 23), "                     You passed level " + level + ".                    ");
+            graphics.putString(new TerminalPosition(0, 24), "                      Your score is " + score + ".                     ");
+            if(level < NUM_LEVELS){
+                graphics.putString(new TerminalPosition(0, 26), "          Press 'space' to continue to next level.          ");
+                graphics.putString(new TerminalPosition(0, 27), "                  Press 'Q' to quit game.                   ");
+            }
+        }
+        else {
+            graphics.putString(new TerminalPosition(0, 22), "                   Better luck next time!                   ");
+            graphics.putString(new TerminalPosition(0, 23), "                     You failed level " + level + ".                    ");
+            graphics.putString(new TerminalPosition(0, 24), "                     Your score is " + score + ".                     ");
+            graphics.putString(new TerminalPosition(0, 26), "                Press any key to quit game.                 ");
+        }
     }
 }

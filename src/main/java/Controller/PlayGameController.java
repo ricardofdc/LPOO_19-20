@@ -11,9 +11,9 @@ public class PlayGameController implements StateController {
     private final BrickController brickController;
     private final ShipController shipController;
 
-    public PlayGameController(int level)
+    public PlayGameController(int level, int score)
     {
-        this.arena = new ArenaCreator().createArena(level);
+        this.arena = new ArenaCreator().createArena(level, score);
         this.ballController = new BallController(arena.getBall(), arena.getWidth(), arena.getHeight());
         this.brickController = new BrickController(arena.getBricks());
         this.shipController = new ShipController(arena.getShip());
@@ -52,9 +52,9 @@ public class PlayGameController implements StateController {
     public StateController step(){
         ballController.step();
         if(checkBallCollisions()) //true => bola bateu no fundo da arena
-            return new GameOverController(false);
+            return new GameOverController(false, arena.getLevel(), arena.getScore());
         if(!brickController.anyBricksLeft())
-            return new GameOverController(true);
+            return new GameOverController(true, arena.getLevel(), arena.getScore());
         return this;
     }
 

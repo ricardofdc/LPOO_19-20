@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 
 public class ArenaCreator {
 
-    public Arena createArena(int level){
+    public Arena createArena(int level, int score){
         String filename = "level" + level + ".lvl";
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(filename);
         assert inputStream != null;
@@ -21,7 +21,7 @@ public class ArenaCreator {
         try {
             Ship ship = new Ship(new Position(width / 2, height - 1));
             Ball ball = new Ball(new Position(width/2, height-2));
-            Arena arena = new Arena(ship, ball, width+2, height+2, level);
+            Arena arena = new Arena(ship, ball, width+2, height+2, level, score);
 
             for(int i=0; i<=width+1; i++){
                 arena.addWall(new Wall(new Position(i,0)));
