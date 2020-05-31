@@ -41,11 +41,11 @@ Here's how we decided to implement the pattern:
 The classes can be found in the following files:
 
 * [LanternaDisplay](../src/main/java/View/LanternaDisplay.java)
-[Arena](../src/main/java/Model/Arena.java)
-[PlayGameController](../src/main/java/Controller/PlayGameController.java)
-[BrickController](../src/main/java/View/LanternaDisplay.java)
-[BallController](../src/main/java/View/LanternaDisplay.java)
-[ShipController](../src/main/java/View/LanternaDisplay.java)
+* [Arena](../src/main/java/Model/Arena.java)
+* [PlayGameController](../src/main/java/Controller/PlayGameController.java)
+* [BrickController](../src/main/java/View/LanternaDisplay.java)
+* [BallController](../src/main/java/View/LanternaDisplay.java)
+* [ShipController](../src/main/java/View/LanternaDisplay.java)
 
 #### 1.4) Consequences
 As said in _**1.1)**_, besides the organization it makes it easier to change only one component of the game, and to keep all the others intact.
@@ -64,11 +64,11 @@ The objects instantiation is made with **Element** by saving the position, worki
 
 The classes can be found in the following files:
 
-[Element](../src/main/java/Model/Element.java)
-[Ship](../src/main/java/Model/Ship.java)
-[Brick](../src/main/java/Model/Brick.java)
-[Ball](../src/main/java/Model/Ball.java)
-[Wall](../src/main/java/Model/Wall.java)
+* [Element](../src/main/java/Model/Element.java)
+* [Ship](../src/main/java/Model/Ship.java)
+* [Brick](../src/main/java/Model/Brick.java)
++ [Ball](../src/main/java/Model/Ball.java)
+* [Wall](../src/main/java/Model/Wall.java)
 
 
 #### 2.4) Consequences
@@ -86,13 +86,13 @@ TODO: write about state pattern
 
 The classes can be found in the following files:
 
-[StateController](../src/main/java/Controller/StateController.java)
-[Game](../src/main/java/Controller/Game.java)
-[MainMenuController](../src/main/java/Controller/MainMenuController.java)
-[PlayGameController](../src/main/java/Controller/PlayGameController.java)
-[SelectLevelController](../src/main/java/Controller/SelectLevelController.java)
-[GameOverController](../src/main/java/Controller/GameOverController.java)
-[CloseGameController](../src/main/java/Controller/CloseGameController.java)
+* [StateController](../src/main/java/Controller/StateController.java)
+* [Game](../src/main/java/Controller/Game.java)
+* [MainMenuController](../src/main/java/Controller/MainMenuController.java)
+* [PlayGameController](../src/main/java/Controller/PlayGameController.java)
+* [SelectLevelController](../src/main/java/Controller/SelectLevelController.java)
+* [GameOverController](../src/main/java/Controller/GameOverController.java)
+* [CloseGameController](../src/main/java/Controller/CloseGameController.java)
 
 #### 3.4) Consequences
 TODO: write about state pattern
