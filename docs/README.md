@@ -153,5 +153,5 @@ We didn't find this crucial to be refactored because we are using switch operato
 
 ## Self-Evaluation
 
-Ricardo Cardoso: 50%
-Marta Lobo: 50%
+- Ricardo Cardoso: 50%
+- Marta Lobo: 50%
