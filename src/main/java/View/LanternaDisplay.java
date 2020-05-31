@@ -92,35 +92,32 @@ public class LanternaDisplay implements Display {
 
     private void drawSelectLevel() {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(new TerminalPosition(0, 24), "        Press a number from 1 to 1 to choose a level        ");
+        graphics.putString(new TerminalPosition(0, 24), "        Press a number from 1 to 3 to choose a level        ");
 
-
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(0, 11), "____________________________________________________________");
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#800000"));
-        graphics.putString(new TerminalPosition(0, 12), "                                                            ");
-        graphics.putString(new TerminalPosition(0, 14), "____________________________________________________________");
-        graphics.setForegroundColor(TextColor.Factory.fromString("#cc5200"));
-        graphics.putString(new TerminalPosition(0, 13), "                        BRICKBREAKER                        ");
+        drawHeader();
     }
 
     private void drawMainMenu() {
 
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
-        graphics.putString(new TerminalPosition(0, 24), "               Press 'space' to choose a level              ");
+        graphics.putString(new TerminalPosition(0, 23), "               Press 'space' to choose a level              ");
+        graphics.putString(new TerminalPosition(0, 24), "                 Press 's' to see highscores                ");
         graphics.putString(new TerminalPosition(0, 26), "                       Instructions:                        ");
         graphics.putString(new TerminalPosition(0, 27), "       Press left and right arrows to move the paddle       ");
         graphics.putString(new TerminalPosition(0, 28), "              Press up arrow to start the game              ");
         graphics.putString(new TerminalPosition(0, 29), "                  Destroy all the bricks!                   ");
 
-        graphics.enableModifiers(SGR.BOLD);
-        graphics.putString(new TerminalPosition(0, 11), "____________________________________________________________");
-        graphics.setBackgroundColor(TextColor.Factory.fromString("#800000"));
-        graphics.putString(new TerminalPosition(0, 12), "                                                            ");
-        graphics.putString(new TerminalPosition(0, 14), "____________________________________________________________");
-        graphics.setForegroundColor(TextColor.Factory.fromString("#cc5200"));
-        graphics.putString(new TerminalPosition(0, 13), "                        BRICKBREAKER                        ");
+        drawHeader();
+    }
 
+    private void drawHeader(){
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(0, 9), "____________________________________________________________");
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#800000"));
+        graphics.putString(new TerminalPosition(0, 10), "                                                            ");
+        graphics.putString(new TerminalPosition(0, 12), "____________________________________________________________");
+        graphics.setForegroundColor(TextColor.Factory.fromString("#cc5200"));
+        graphics.putString(new TerminalPosition(0, 11), "                        BRICKBREAKER                        ");
     }
 
     private void drawPlayGame() {
@@ -161,6 +158,18 @@ public class LanternaDisplay implements Display {
             switch (brick.getValue()){
                 case 1:
                     color = "#800000";
+                    break;
+                case 2:
+                    color = "#806000";
+                    break;
+                case 3:
+                    color = "#008020";
+                    break;
+                case 4:
+                    color = "#006080";
+                    break;
+                case 5:
+                    color = "#800080";
                     break;
 
             }
