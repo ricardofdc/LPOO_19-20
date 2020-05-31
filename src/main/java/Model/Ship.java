@@ -7,7 +7,7 @@ import java.util.List;
 public class Ship extends Element
 {
     private Position initPosition;
-    private int length = 7; //deve ser sempre um valor ímpar
+    private int length = 9; //deve ser sempre um valor ímpar
     private int lifes = 3;
     private List<Position> actualPositions;
 
@@ -31,16 +31,20 @@ public class Ship extends Element
 
     public void moveLeft(){
         this.position = this.position.left();
+        List<Position> newPositions = new ArrayList<>();
         for(Position pos: actualPositions){
-            pos = pos.left();
+            newPositions.add(pos.left());
         }
+        actualPositions = newPositions;
     }
 
     public void moveRight(){
         this.position = this.position.right();
+        List<Position> newPositions = new ArrayList<>();
         for(Position pos: actualPositions){
-            pos = pos.right();
+            newPositions.add(pos.right());
         }
+        actualPositions = newPositions;
     }
 
     public void startPosition(){
@@ -55,12 +59,12 @@ public class Ship extends Element
         return this.length;
     }
 
-    public Position getRightExtreme(){
+    public Position getLeftExtreme(){
         return this.actualPositions.get(0);
         //return new Position(position.getX() + Math.floorDiv(length,2), position.getY());
     }
 
-    public Position getLeftExtreme(){
+    public Position getRightExtreme(){
         return this.actualPositions.get(length-1);
         //return new Position(position.getX() - Math.floorDiv(length,2), position.getY());
     }

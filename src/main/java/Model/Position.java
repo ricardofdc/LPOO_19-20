@@ -10,6 +10,15 @@ public class Position
         this.y = y;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + x;
+        hash = 31 * hash + y;
+        return hash;
+    }
+
+    @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;

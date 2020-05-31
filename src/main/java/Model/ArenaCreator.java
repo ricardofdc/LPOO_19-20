@@ -43,9 +43,6 @@ public class ArenaCreator {
                     }
                 }
             }
-            for(Brick brick: arena.getBricks()){
-                System.out.println("x:" + brick.getPosition().getX() + " y:" + brick.getPosition().getY());
-            }
             return arena;
 
         } catch (IOException e) {

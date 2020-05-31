@@ -18,10 +18,10 @@ public class ShipController {
     }
 
     public void moveLeft(){
-        ship.setPosition(ship.getPosition().left());
+        ship.moveLeft();
     }
 
     public void moveRight(){
-        ship.setPosition(ship.getPosition().right());
+        ship.moveRight();
     }
 }

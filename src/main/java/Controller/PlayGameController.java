@@ -25,7 +25,22 @@ public class PlayGameController implements StateController {
 
     @Override
     public StateController processInput(String input){
-        //TODO
+        switch (input){
+            case "ArrowUp":
+                ballController.startMoving();
+                break;
+            case "ArrowLeft":
+                shipController.moveLeft();
+                checkShipCollisions();
+                break;
+            case "ArrowRight":
+                shipController.moveRight();
+                checkShipCollisions();
+                break;
+            case "q":
+                return new QuitGameController();
+        }
+
         return this;
     }
 
@@ -34,12 +49,16 @@ public class PlayGameController implements StateController {
         return "PlayGame";
     }
 
-    private void step(){
+    public StateController step(){
         ballController.step();
-        checkCollisions();
+        if(checkBallCollisions()) //true => bola bateu no fundo da arena
+            return new GameOverController(false);
+        if(!brickController.anyBricksLeft())
+            return new GameOverController(true);
+        return this;
     }
 
-    private void checkCollisions() {
+    private boolean checkBallCollisions() {
         Ball ball = arena.getBall();
         Ship ship = arena.getShip();
 
@@ -48,9 +67,38 @@ public class PlayGameController implements StateController {
                 //bola bateu na parede
                 if(ballController.hitWall(wall)){
                     //bola caiu
-                    lifeLost();
+                    if(lifeLost())
+                        return true;
                 }
             }
+        }
+
+        for (Brick brick : arena.getBricks()) {
+            if (brick.getPosition().equals(ball.getPosition())) {
+                //bola bateu no tijolo
+                int neighbours = brickController.hitBrick(brick.getPosition());
+                ballController.hitBrick(neighbours);
+                arena.incrementScore(5);
+                break;
+            }
+        }
+
+        int i=0; //para saber qual a posição do ship que foi atingida
+        for (Position pos : ship.getActualPositions()) {
+            if(pos.equals(ball.getPosition())) {
+                //bola bateu no ship
+                ballController.hitShip(i, ship.getLength());
+                break;
+            }
+            i++;
+        }
+        return false;
+    }
+
+    private void checkShipCollisions() {
+        Ship ship = arena.getShip();
+
+        for (Wall wall : arena.getWalls()) {
             if(wall.getPosition().equals(ship.getRightExtreme())){
                 //ship bateu na parede do lado direito
                 shipController.moveLeft();
@@ -60,34 +108,11 @@ public class PlayGameController implements StateController {
                 shipController.moveRight();
             }
         }
-
-        for (Brick brick : arena.getBricks()) {
-            if (brick.getPosition().equals(ball.getPosition())) {
-                //bola bateu no tijolo
-                int neighbours = brickController.hitBrick(brick.getPosition());
-                ballController.hitBrick(neighbours);
-            }
-        }
-
-        int i=0; //para saber qual a posição do ship que foi atingida
-        for (Position pos : ship.getActualPositions()) {
-            if(pos.equals(ball.getPosition())) {
-                //bola bateu no ship
-                ballController.hitShip(i, ship.getLength());
-            }
-            i++;
-        }
     }
 
-    private void lifeLost() {
+    private boolean lifeLost() {
         ballController.reset();
-        if(shipController.lifeLost())
-            gameOver();
+        return shipController.lifeLost();
     }
-
-    private void gameOver() {
-        //TODO
-    }
-
 }
 

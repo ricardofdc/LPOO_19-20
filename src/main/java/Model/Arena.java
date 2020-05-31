@@ -38,6 +38,10 @@ public class Arena {
         this.bricks.add(brick);
     }
 
+    public void incrementScore(int value){
+        this.score += value;
+    }
+
 
     public Ship getShip() { return ship; }
     public Ball getBall() { return ball; }

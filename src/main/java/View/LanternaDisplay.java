@@ -76,10 +76,18 @@ public class LanternaDisplay implements Display {
             case "SelectLevel":
                 drawSelectLevel();
                 break;
+            case "QuitGame":
+                drawQuitGame();
+                break;
             default:
                 break;
         }
         screen.refresh();
+    }
+
+    private void drawQuitGame() {
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+        graphics.putString(new TerminalPosition(5, 5), "QUITGAME");
     }
 
     private void drawSelectLevel() {
@@ -100,9 +108,10 @@ public class LanternaDisplay implements Display {
 
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
         graphics.putString(new TerminalPosition(0, 24), "               Press 'space' to choose a level              ");
-        graphics.putString(new TerminalPosition(0, 28), "                       Instructions:                        ");
-        graphics.putString(new TerminalPosition(0, 29), "       Press left and right arrows to move the paddle       ");
-        graphics.putString(new TerminalPosition(0, 30), "                  Destroy all the bricks!                   ");
+        graphics.putString(new TerminalPosition(0, 26), "                       Instructions:                        ");
+        graphics.putString(new TerminalPosition(0, 27), "       Press left and right arrows to move the paddle       ");
+        graphics.putString(new TerminalPosition(0, 28), "              Press up arrow to start the game              ");
+        graphics.putString(new TerminalPosition(0, 29), "                  Destroy all the bricks!                   ");
 
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(0, 11), "____________________________________________________________");
@@ -129,13 +138,13 @@ public class LanternaDisplay implements Display {
     private void drawBall() {
         Ball ball = arena.getBall();
         graphics.setForegroundColor(TextColor.Factory.fromString("#000000"));
-        graphics.putString(new TerminalPosition(ball.getPosition().getX(), ball.getPosition().getY()), "\u25cf");
+        graphics.putString(new TerminalPosition(ball.getPosition().getX()+1, ball.getPosition().getY()), "\u25cf");
     }
 
     private void drawShip() {
         for(Position pos: arena.getShip().getActualPositions()){
             graphics.setForegroundColor(TextColor.Factory.fromString("#336600"));
-            graphics.putString(new TerminalPosition(pos.getX(), pos.getY()), "\u2580");
+            graphics.putString(new TerminalPosition(pos.getX()+1, pos.getY()), "\u2580");
         }
     }
 

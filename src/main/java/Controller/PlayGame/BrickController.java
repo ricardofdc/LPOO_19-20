@@ -29,10 +29,6 @@ public class BrickController
         (...)
          */
 
-        //brick atingido
-        //reduzir o seu valor
-        //eliminar caso o valor atinja 0
-
         Brick brick = bricks_hm.get(brickPos);
         brick.decreaseValue();
         if(brick.getValue() == 0){
@@ -56,5 +52,9 @@ public class BrickController
         }
         return neighbours;
 
+    }
+
+    public boolean anyBricksLeft() {
+        return bricks.size()>0;
     }
 }
