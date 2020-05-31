@@ -1,9 +1,6 @@
 import Model.Position;
-import Controller.ShipController;
 import Model.Ship;
 import org.junit.*;
-
-import java.awt.font.LineBreakMeasurer;
 
 import static org.junit.Assert.*;
 
@@ -20,15 +17,17 @@ public class testShipController
     public void testShipMoveLeft()
     {
         Position pos = new Position(0,1);
-        assertEquals(ship.getPosition().left(), pos);
+        ship.moveLeft();
+        assertEquals(ship.getPosition(), pos);
     }
 
     @Test
     public void testShipMoveRight()
     {
         Position pos = new Position(2,1);
-        assertEquals(ship.getPosition().right(), pos);
+        ship.moveRight();
+        assertEquals(ship.getPosition(), pos);
     }
 
-
 }
+
