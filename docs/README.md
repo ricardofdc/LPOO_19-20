@@ -136,6 +136,7 @@ A noticeable code smell we happened to developed was a **Long Method** which is 
 #### 1.2 Refactoring
 Although we find this code easy to understand (besides its size), we know classes with short methods are easier to deal with. This could be avoided by using Extract Method. 
 
+
 ### 2. Switch Statements / Sequence of if statements
 #### 2.1 Code Smell
 On some classes included in the Controller, in processInput() the recurrent use of switch cases is evident. This happens in order to make it easier to add functionalities to the program.
@@ -143,12 +144,21 @@ On some classes included in the Controller, in processInput() the recurrent use 
 #### 2.2 Refactoring
 We didn't find this crucial to be refactored because we are using switch operators that perform simple actions. 
 
+
 ### 3. Comments
 #### 3.1 Code Smell
 On [PlayGameController](../src/main/java/Controller/PlayGameController.java) we happen to have some explanatory comments concerning collision detection. We did it so we could easily see all the collision scenarios between the ball, ship, bricks and walls.
 
 #### 3.2 Refactoring
 We don't feel it would be impossible to understand the code without comments, otherwise we would change the code structure in a way that makes comments unnecessary. But it helped us organizing our thoughts while processing collisions.
+
+
+### 4. Shotgun Surgery
+#### 4.1 Code Smell
+The Shotgun Surgery code smell is present whenever making any modifications requires that you make many small changes to many different classes. This code smell was present at the beginning of our development phase, before we began refactoring the program. 
+
+#### 4.2 Refactoring
+When we took the time to reorganize our code and refactor the MVC model, we could easily aggregate functions and classes with similiar proposes, by using the Mode Method and Move Field techniques. We soon began to understand the behaviours of all the classes and their uses in order to start making a functional game.
 
 ## Testing
 ![coveragereport](coverage.png) ![testes](testing.png) 
