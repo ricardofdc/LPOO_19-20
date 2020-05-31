@@ -3,7 +3,6 @@
 The player is in control of a sliding platform that can bounce the ball into the bricks above. The player must use angles and rebounds to control the direction the balls move. If the balls fall into the abyss below, you’ll lose a life. Once a player manages to destroy all the bricks, he passes the level and the difficulty increases.  
 This project was developed by Ricardo Cardoso (up201604686@fe.up.pt) and Marta Lobo (up201604530@fe.up.pt) for LPOO 2019⁄20.
 
-
 ## Implemented Features
 - [x] **Arena** - with insurmountable barrier
 - [x] **Platform** - the player must be able to move the platform side to side when arrow left or arrow right are pressed.
@@ -20,6 +19,9 @@ This project was developed by Ricardo Cardoso (up201604686@fe.up.pt) and Marta L
 - [ ] **Special bricks** - drop different special powers.
 - [ ] **Enemies** - must throw bombs; must disappear once it is hit 3 times by the bouncing ball
 
+## GIF
+
+![gif](gif.gif) 
 
 ## Design 
 ### 1. Separating the Game's Modules
@@ -95,9 +97,9 @@ The classes can be found in the following files:
 * [QuitGameController](../src/main/java/Controller/QuitGameController.java)
 * [SaveScoreController](../src/main/java/Controller/SaveScoreController.java)
 * [HighScoresController](../src/main/java/Controller/HighScoresController.java)
-* [BrickController](../src/main/java/View/LanternaDisplay.java)
-* [BallController](../src/main/java/View/LanternaDisplay.java)
-* [ShipController](../src/main/java/View/LanternaDisplay.java)
+* [BrickController](../src/main/java/Controller/PlayGame/Brick.java)
+* [BallController](../src/main/java/Controller/PlayGame/Ball.java)
+* [ShipController](../src/main/java/Controller/PlayGame/Ship.java)
 
 #### 3.4) Consequences
 With this implementation we could easily localize the different states and make its transitions explicit. This way we could easily control what models should be updated, which functions from the controller should be called and what should be drawn on the screen depending on the active state.
@@ -129,23 +131,24 @@ With this implementation we found a way to simplify the process of manipulating 
 ## Know Code Smells and Refactoring Suggestions 
 ### 1. Long Method
 #### 1.1 Code Smell
-A noticeable code smell we happened to developed was a **Long Method** which is a method that contains too many lines of code. This happened in hitBrick(), included in [BallController](../src/main/java/View/LanternaDisplay.java) class, which is a method used to manipulate the direction of the ball in relation to the bricks when a collision occurs between them. It turned out to be a bit longer than it should due to a considered number of movement scenarios.
+A noticeable code smell we happened to developed was a **Long Method** which is a method that contains too many lines of code. This happened in hitBrick(), included in [BallController](../src/main/java/Controller/PlayGame/BallController.java) class, which is a method used to manipulate the direction of the ball in relation to the bricks when a collision occurs between them. It turned out to be a bit longer than it should due to a considered number of movement scenarios.
 
 #### 1.2 Refactoring
 Although we find this code easy to understand (besides its size), we know classes with short methods are easier to deal with. This could be avoided by using Extract Method. 
 
 ### 2. Switch Statements / Sequence of if statements
-#### 1.1 Code Smell
+#### 2.1 Code Smell
 On some classes included in the Controller, in processInput() the recurrent use of switch cases is evident. This happens in order to make it easier to add functionalities to the program.
 
-#### 1.2 Refactoring
+#### 2.2 Refactoring
 We didn't find this crucial to be refactored because we are using switch operators that perform simple actions. 
 
-### 3. 
-#### 1.1 Code Smell
+### 3. Comments
+#### 3.1 Code Smell
+On [PlayGameController](../src/main/java/Controller/PlayGameController.java) we happen to have some explanatory comments concerning collision detection. We did it so we could easily see all the collision scenarios between the ball, ship, bricks and walls.
 
-#### 1.2 Refactoring
-
+#### 3.2 Refactoring
+We don't feel it would be impossible to understand the code without comments, otherwise we would change the code structure in a way that makes comments unnecessary. But it helped us organizing our thoughts while processing collisions.
 
 ## Testing
 ![coveragereport](coverage.png) ![testes](testing.png) 
