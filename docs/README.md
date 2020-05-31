@@ -8,15 +8,16 @@ This project was developed by Ricardo Cardoso (up201604686@fe.up.pt) and Marta L
 - [x] **Arena** - with insurmountable barrier
 - [x] **Platform** - the player must be able to move the platform side to side when arrow left or arrow right are pressed.
 - [x] **Bouncing ball** - must collide with brick and barriers
-- [x] **Normal bricks** - must disappear once they are hit by the ball
+- [x] **Normal bricks** - must disappear once their score hits 0
 - [x] **Collision detection** 
 - [x] **Menu and Game Over Screen** - main menu must have the title of the game and its instructions, game over screen must have options to quit or play again
 - [x] **Lifes** - how many lifes the player has, must decrease whenever the player can't catch the ball
 - [x] **Score** - must increase differently depending on the type of bricks that are hit 
 - [x] **Levels** - 1st level must start with normals bricks only; difficulty increases throughout the levels -> more special bricks, less normal bricks
-- [x] **Special bricks** - must take more hits till they disappear 
+- [x] **Save score and see HighScores table** - when the game ends the player can choose to save his score and when in the MainMenu the player has one option to see the highscores table
 
 ## Planned Features
+- [ ] **Special bricks** - drop different special powers.
 - [ ] **Enemies** - must throw bombs; must disappear once it is hit 3 times by the bouncing ball
 
 
@@ -49,13 +50,13 @@ As said in _**1.1)**_, besides the organization it makes it easier to change onl
 
 ### 2. Instantiation of the Elements
 #### 2.1) Problem in Context 
-When creating an element, wether it is the ship, the ball, the bricks or even the walls, we wanted to save its position because that way it can be checked and modified throughout the game.
+When creating an element, whether it is the ship, the ball, the bricks or even the walls, we wanted to save its position because that way it can be checked and modified throughout the game.
 
 #### 2.2) The Pattern
-We followed **Abstract Factory** as we have a family of products that is designed to work together, needing to reinforce this constraint.
+We followed **Composite Pattern** because this simplifies the process of accessing the position of different objects.
 
 #### 2.3) Implementation
-The objects instantiation is made with **Element** by saving the position, working together with each subclass's constructor (ex: Ball, Ship, Brick, Wall). 
+The objects instantiation is made with Element by saving the position, working together with each subclass's constructor (ex: Ball, Ship, Brick, Wall).
 
 ![element](element.png) 
 
@@ -93,6 +94,7 @@ The classes can be found in the following files:
 * [CloseGameController](../src/main/java/Controller/CloseGameController.java)
 * [QuitGameController](../src/main/java/Controller/QuitGameController.java)
 * [SaveScoreController](../src/main/java/Controller/SaveScoreController.java)
+* [HighScoresController](../src/main/java/Controller/HighScoresController.java)
 * [BrickController](../src/main/java/View/LanternaDisplay.java)
 * [BallController](../src/main/java/View/LanternaDisplay.java)
 * [ShipController](../src/main/java/View/LanternaDisplay.java)
@@ -100,13 +102,49 @@ The classes can be found in the following files:
 #### 3.4) Consequences
 With this implementation we could easily localize the different states and make its transitions explicit. This way we could easily control what models should be updated, which functions from the controller should be called and what should be drawn on the screen depending on the active state.
 
+### 4. Creating Arenas
+#### 4.1) Problem in Context 
+We realized that for creating an arena we need to create different objects, such as Walls, Bricks, one Ship and one Ball. To help us with this we created a class called ArenaCreator that is in charge of creating all those objects just with the information of the level number and the initial score.
+
+#### 3.2) The Pattern
+To help us with this we followed the Factory Pattern eliminating the need to know witch objects we need to create every time we want to build a new arena.
+
+#### 3.3) Implementation
+Here's how we decided to implement the pattern:
+
+![arenacreator](arenacreator.png) 
+
+The classes can be found in the following files:
+
+* [ArenaCreator](../src/main/java/Model/Arena.java)
+* [Arena](../src/main/java/Model/Arena.java)
+* [Ship](../src/main/java/Model/Ship.java)
+* [Brick](../src/main/java/Model/Brick.java)
+* [Ball](../src/main/java/Model/Ball.java)
+* [Wall](../src/main/java/Model/Wall.java)
+
+#### 3.4) Consequences
+
 ## Know Code Smells and Refactoring Suggestions 
-### 1. Speculative Generality
-For now, class Enemy is a speculative generality because it was created to support anticipated future features, and currently has no use.
+### 1. Long Method
+#### 1.1 Code Smell
+A noticeable code smell we happened to developed was a **Long Method** which is a method that contains too many lines of code. This happened in hitBrick(), included in [BallController](../src/main/java/View/LanternaDisplay.java) class, which is a method used to manipulate the direction of the ball in relation to the bricks when a collision occurs between them. It turned out to be a bit longer than it should due to a considered number of movement scenarios.
+
+#### 1.2 Refactoring
+Although we find this code easy to understand (besides its size), we know classes with short methods are easier to deal with. This could be avoided by using Extract Method. 
 
 ### 2. Switch Statements / Sequence of if statements
-In order to detect and process user input, when an important key is pressed, we create an event. 
-And in order to process it we have a sequence of if statements that calls diferent methods to update the game. We want to eliminate these if statements, as it is a code smell, and find a way to properly process the events generated by user input.
+#### 1.1 Code Smell
+On some classes included in the Controller, in processInput() the recurrent use of switch cases is evident. This happens in order to make it easier to add functionalities to the program.
+
+#### 1.2 Refactoring
+We didn't find this crucial to be refactored because we are using switch operators that perform simple actions. 
+
+### 3. 
+#### 1.1 Code Smell
+
+#### 1.2 Refactoring
+
 
 ## Testing
 ![coveragereport](coverage.png) 
@@ -114,3 +152,6 @@ And in order to process it we have a sequence of if statements that calls difere
 TODO add mutation report here
 
 ## Self-Evaluation
+
+Ricardo Cardoso: 50%
+Marta Lobo: 50%
