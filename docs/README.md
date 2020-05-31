@@ -86,7 +86,6 @@ Game has stateController as an attribute (StateController). This indicates the s
 The classes can be found in the following files:
 
 * [StateController](../src/main/java/Controller/StateController.java)
-* [Game](../src/main/java/Controller/Game.java)
 * [MainMenuController](../src/main/java/Controller/MainMenuController.java)
 * [PlayGameController](../src/main/java/Controller/PlayGameController.java)
 * [SelectLevelController](../src/main/java/Controller/SelectLevelController.java)
