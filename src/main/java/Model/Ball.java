@@ -9,24 +9,16 @@ public class Ball extends Element {
     }
 
     public void startPosition(){
-        this.position = new Position(initPos.getX(), initPos.getY());
-    }
-
-    public Position getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(Position pos){
-        this.position = pos;
+        this.setPosition(new Position(initPos.getX(), initPos.getY()));
     }
 
     public void moveBallHorizontal(int dir){
         switch (dir){
             case -1:
-                setPosition(position.left());
+                setPosition(getPosition().left());
                 break;
             case 1:
-                setPosition(position.right());
+                setPosition(getPosition().right());
                 break;
             default:
                 break;
@@ -36,10 +28,10 @@ public class Ball extends Element {
     public void moveBallVertical(int dir){
         switch (dir){
             case -1:
-                setPosition(position.down());
+                setPosition(getPosition().down());
                 break;
             case 1:
-                setPosition(position.up());
+                setPosition(getPosition().up());
                 break;
             default:
                 break;

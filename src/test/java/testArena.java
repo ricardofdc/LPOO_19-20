@@ -13,7 +13,7 @@ public class testArena {
         Ball ball = new Ball(pos);
         Ship ship = new Ship(pos);
 
-        Arena arena = new Arena(ship, ball, 60, 35, 1);
+        Arena arena = new Arena(ship, ball, 60, 35, 1,0);
         assertEquals(arena.getScore(), 0);
     }
 
@@ -24,7 +24,7 @@ public class testArena {
         Ball ball = new Ball(pos);
         Brick brick = new Brick(pos, 5);
         Ship ship = new Ship(pos);
-        Arena arena = new Arena(ship, ball, 60, 35, 1);
+        Arena arena = new Arena(ship, ball, 60, 35, 1,0);
 
         arena.addBrick(brick);
 
@@ -39,7 +39,7 @@ public class testArena {
         Position pos = new Position(10, 10);
         Ball ball = new Ball(pos);
         Ship ship = new Ship(pos);
-        Arena arena = new Arena(ship, ball, 60, 35, 1);
+        Arena arena = new Arena(ship, ball, 60, 35, 1,0);
 
         arena.incrementScore(5);
         assertEquals(arena.getScore(), 5);
