@@ -3,6 +3,9 @@ import Model.Position;
 import Controller.PlayGame.BallController;
 import org.junit.*;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 
 public class testBallController
 {
