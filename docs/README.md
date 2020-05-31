@@ -40,12 +40,12 @@ Here's how we decided to implement the pattern:
 
 The classes can be found in the following files:
 
-[LanternaDisplay](../src/main/java/View/LanternaDisplay.java)
-[Arena](../src/main/java/Model/Arena.java)
-[PlayGameController](../src/main/java/Controller/PlayGameController.java)
-[BrickController](../src/main/java/View/LanternaDisplay.java)
-[BallController](../src/main/java/View/LanternaDisplay.java)
-[ShipController](../src/main/java/View/LanternaDisplay.java)
+#####[LanternaDisplay](../src/main/java/View/LanternaDisplay.java)
+#####[Arena](../src/main/java/Model/Arena.java)
+#####[PlayGameController](../src/main/java/Controller/PlayGameController.java)
+#####[BrickController](../src/main/java/View/LanternaDisplay.java)
+#####[BallController](../src/main/java/View/LanternaDisplay.java)
+#####[ShipController](../src/main/java/View/LanternaDisplay.java)
 
 #### 1.4) Consequences
 As said in _**1.1)**_, besides the organization it makes it easier to change only one component of the game, and to keep all the others intact.
