@@ -4,9 +4,13 @@ public class MainMenuController implements StateController {
 
     @Override
     public StateController processInput(String input) {
-        if (input.equals(" ")) {
-            return new SelectLevelController();
+        switch (input){
+            case " ":
+                return new SelectLevelController();
+            case "s":
+                return new HighScoresController();
         }
+
         return this;
     }
 

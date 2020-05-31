@@ -1,9 +1,6 @@
 package View;
 
-import Controller.GameOverController;
-import Controller.PlayGameController;
-import Controller.QuitGameController;
-import Controller.StateController;
+import Controller.*;
 import Model.*;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TerminalPosition;
@@ -17,6 +14,7 @@ import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 import com.googlecode.lanterna.terminal.Terminal;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LanternaDisplay implements Display {
     private Screen screen;
@@ -85,10 +83,46 @@ public class LanternaDisplay implements Display {
                 String name = ((QuitGameController)state).getName();
                 drawQuitGame(name);
                 break;
+            case "SaveScore":
+                drawSaveScore();
+                break;
+            case "HighScores":
+                ArrayList<String> names = ((HighScoresController)state).getNames();
+                ArrayList<Integer> scores = ((HighScoresController)state).getScores();
+                drawHighScores(names, scores);
+                break;
             default:
                 break;
         }
         screen.refresh();
+    }
+
+    private void drawHighScores(ArrayList<String> names, ArrayList<Integer> scores) {
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(0, 0), "____________________________________________________________");
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#800000"));
+        graphics.putString(new TerminalPosition(0, 1), "                                                            ");
+        graphics.putString(new TerminalPosition(0, 3), "____________________________________________________________");
+        graphics.setForegroundColor(TextColor.Factory.fromString("#cc5200"));
+        graphics.putString(new TerminalPosition(0, 2), "                         HIGHSCORES                         ");
+
+        graphics.setBackgroundColor(TextColor.Factory.fromString(BACKGROUND_COLOR));
+        graphics.disableModifiers(SGR.BOLD);
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFFFF"));
+
+        int num = Math.min(20, names.size());
+        for(int i=0; i<num; i++){
+            graphics.putString(new TerminalPosition(2, i+5), names.get(i));
+            graphics.putString(new TerminalPosition(45, i+5), scores.get(i).toString());
+        }
+
+        graphics.putString(new TerminalPosition(0, 28), "           Press any key to go back to main menu.           ");
+    }
+
+    private void drawSaveScore() {
+        drawHeader();
+        graphics.putString(new TerminalPosition(0, 23), "                    Your score is saved.                    ");
+        graphics.putString(new TerminalPosition(0, 26), "           Press any key to go back to main menu.           ");
     }
 
     private void drawQuitGame(String name) {

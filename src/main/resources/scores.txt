@@ -1,4 +1,5 @@
 Andre 100
 Ricardo 50
+rui 15
 Rui 5
 Jorge 0

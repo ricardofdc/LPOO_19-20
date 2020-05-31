@@ -60,6 +60,11 @@ public class SaveScoreController implements StateController {
 
     @Override
     public StateController processInput(String input) {
-        return this;
+        return new MainMenuController();
+    }
+
+    @Override
+    public String toString() {
+        return "SaveScore";
     }
 }
