@@ -124,6 +124,7 @@ The classes can be found in the following files:
 * [Wall](../src/main/java/Model/Wall.java)
 
 #### 3.4) Consequences
+With this implementation we found a way to simplify the process of manipulating so many elements.
 
 ## Know Code Smells and Refactoring Suggestions 
 ### 1. Long Method
@@ -147,9 +148,8 @@ We didn't find this crucial to be refactored because we are using switch operato
 
 
 ## Testing
-![coveragereport](coverage.png) 
+![coveragereport](coverage.png) ![testes](testing.png) 
 
-TODO add mutation report here
 
 ## Self-Evaluation
 
