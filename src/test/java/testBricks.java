@@ -25,19 +25,4 @@ public class testBricks
 
         assertEquals(brick.getValue(), brick2.getValue());
     }
-
-    @Test
-    public void testController(){
-        Position pos = new Position(10, 10);
-        Brick brick = new Brick(pos, 1);
-
-        BrickController controller = new BrickController(bricks);
-        this.bricks_hm = new HashMap<>();
-        this.bricks_hm.put(brick.getPosition(), brick);
-
-        controller.hitBrick(brick.getPosition());
-
-        assertEquals(brick.getValue(), 0);
-        assertEquals(bricks.remove(brick), true);
-    }
 }
