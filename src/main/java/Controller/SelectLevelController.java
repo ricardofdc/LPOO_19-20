@@ -11,6 +11,8 @@ public class SelectLevelController implements StateController{
                 return new PlayGameController(2,0);
             case "3":
                 return new PlayGameController(3,0);
+            case "4":
+                return new PlayGameController(4,0);
             default:
                 return this;
         }

@@ -1,3 +1,4 @@
+ricardo2 160
 Andre 100
 Ricardo 50
 rui 15
