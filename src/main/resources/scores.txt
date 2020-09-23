@@ -1,5 +1,6 @@
 ricardo2 160
 Andre 100
+kika 55
 Ricardo 50
 rui 15
 Rui 5
