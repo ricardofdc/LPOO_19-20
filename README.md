@@ -6,7 +6,7 @@ The player is in control of a sliding platform that can bounce the ball into the
 
 ![gif](docs/gif.gif) 
 
-Developed by Ricardo Cardoso and Marta Lobo
+Developed by Ricardo Cardoso and @martandradelobo
 
 
 
